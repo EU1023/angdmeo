@@ -1,0 +1,51 @@
+div{
+  border-style: solid;
+
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.top{
+  width: 50%;
+
+}
+
+.bottom{
+  width: 50%;
+  height: 55%;
+  float: left;
+}
+
+.right{
+  position: fixed;
+  top:10%;
+
+  right: 4.7%;
+  float: right;
+
+  width: 44%;
+  height: 80%;
+
+}
+.cikayan{
+  position:relative;
+  top: 50%;
+
+  float: right;
+  text-align: right;
+
+  width: 50%;
+  height: 6%;
+}
+
+.topcoolse{
+  pointer-events: none;
+
+}

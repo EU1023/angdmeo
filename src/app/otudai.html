@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動態清單</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .pagination {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>動態清單</h1>
+    <button onclick="addRow()">新增項目</button>
+    <table>
+        <thead>
+            <tr>
+                <th>□</th>
+                <th>編號</th>
+                <th>名稱</th>
+                <th>狀態</th>
+                <th>開始時間</th>
+                <th>結束時間</th>
+                <th>刪除</th>
+            </tr>
+        </thead>
+        <tbody id="dynamicList">
+            <!-- 動態清單內容 -->
+        </tbody>
+    </table>
+    <div class="pagination">
+        <button onclick="prevPage()">上一頁</button>
+        <span>頁碼: </span>
+        <input type="number" id="pageInput" min="1" value="1" onchange="goToPage()">
+        <span id="pageInfo"></span>
+        <button onclick="nextPage()">下一頁</button>
+    </div>
+
+    <script>
+        let itemCount = 0;
+        let itemsPerPage = 10;
+        let currentPage = 1;
+        let rows = [];
+
+        function addRow() {
+            itemCount++;
+            const row = {
+                id: itemCount,
+                element: document.createElement("tr")
+            };
+            row.element.innerHTML = `
+                <td><input type="checkbox"></td>
+                <td>${itemCount}</td>
+                <td><input type="text" placeholder="輸入名稱"></td>
+                <td class="status-cell">未發布</td>
+                <td><input type="datetime-local" onchange="setMinEndTime(${itemCount}); updateStatus(${itemCount})"></td>
+                <td><input type="datetime-local" onchange="updateStatus(${itemCount})"></td>
+                <td><button onclick="deleteRow(${itemCount})">刪除</button></td>
+            `;
+            rows.push(row);
+            updateTable();
+        }
+
+        function setMinEndTime(id) {
+            const row = rows.find(r => r.id === id);
+            const startTimeInput = row.element.querySelector("td:nth-child(5) input");
+            const endTimeInput = row.element.querySelector("td:nth-child(6) input");
+
+            if (startTimeInput.value) {
+                endTimeInput.min = startTimeInput.value;
+            }
+            updateStatus(id);
+        }
+
+        function updateStatus(id) {
+            const row = rows.find(r => r.id === id);
+            const startTimeInput = row.element.querySelector("td:nth-child(5) input");
+            const endTimeInput = row.element.querySelector("td:nth-child(6) input");
+            const statusCell = row.element.querySelector(".status-cell");
+
+            const now = new Date();
+            const startTime = new Date(startTimeInput.value);
+            const endTime = new Date(endTimeInput.value);
+
+            if (!startTimeInput.value || !endTimeInput.value) {
+                statusCell.innerText = "未發布";
+            } else if (now < startTime) {
+                statusCell.innerText = "未發布";
+            } else if (now >= startTime && now <= endTime) {
+                statusCell.innerText = "發佈中";
+            } else {
+                statusCell.innerText = "已結束";
+            }
+        }
+
+        function updateTable() {
+            const tableBody = document.getElementById("dynamicList");
+            tableBody.innerHTML = "";
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, rows.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                tableBody.appendChild(rows[i].element);
+            }
+
+            document.getElementById("pageInput").value = currentPage;
+            document.getElementById("pageInfo").innerText = `/ ${Math.ceil(rows.length / itemsPerPage)} 頁`;
+        }
+
+        function deleteRow(id) {
+            rows = rows.filter(row => row.id !== id);
+            updateTable();
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                updateTable();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < Math.ceil(rows.length / itemsPerPage)) {
+                currentPage++;
+                updateTable();
+            }
+        }
+
+        function goToPage() {
+            const inputPage = parseInt(document.getElementById("pageInput").value);
+            const totalPages = Math.ceil(rows.length / itemsPerPage);
+
+            if (inputPage >= 1 && inputPage <= totalPages) {
+                currentPage = inputPage;
+                updateTable();
+            } else {
+                alert(`請輸入 1 到 ${totalPages} 之間的頁碼`);
+            }
+        }
+    </script>
+</body>
+</html>

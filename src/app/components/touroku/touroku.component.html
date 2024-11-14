@@ -1,0 +1,30 @@
+<form [formGroup]="form" class="container">
+  <div id="auth-form" class="form active">
+    <label>帳號:</label>
+    <input formControlName="account" placeholder="帳號">
+    <br>
+    <label>密碼:</label>
+    <input formControlName="password" placeholder="密碼">
+    <br>
+    @if(loginRegiser2){
+      <label>信箱:</label>
+      <input formControlName="email" placeholder="信箱">
+      <br>
+      <label>名稱:</label>
+      <input formControlName="name" placeholder="使用者名稱">
+      <br>
+    }
+    @if(loginRegiser1){
+      <button (click)="showfromDataLogin()" [disabled]="!form.valid">登入</button>
+    }
+    @if(loginRegiser2){
+      <button (click)="registerSure()">確定註冊</button>
+    }
+  </div>
+  @if (loginRegiser1) {
+    <button (click)="register()">註冊</button>
+  }
+  @if(loginRegiser2){
+    <button (click)="returnToLogin()">返回登入</button>
+  }
+</form>

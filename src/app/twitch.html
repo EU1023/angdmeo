@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清單</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>任務清單</h1>
+        <form id="taskForm">
+            <input type="text" id="taskName" placeholder="任務名稱" required>
+            <input type="datetime-local" id="startTime" required>
+            <input type="datetime-local" id="endTime" required>
+            <button type="submit">新增任務</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>打勾</th>
+                    <th>編號</th>
+                    <th>名稱</th>
+                    <th>狀態</th>
+                    <th>開始時間</th>
+                    <th>結束時間</th>
+                </tr>
+            </thead>
+            <tbody id="taskList"></tbody>
+        </table>
+        <div class="pagination">
+            <button id="prevBtn" disabled>上一頁</button>
+            <button id="nextBtn" disabled>下一頁</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const taskForm = document.getElementById('taskForm');
+    const taskList = document.getElementById('taskList');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let tasks = [];
+    let currentPage = 0;
+    const tasksPerPage = 10;
+
+    taskForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const taskName = document.getElementById('taskName').value;
+        const startTime = document.getElementById('startTime').value;
+        const endTime = document.getElementById('endTime').value;
+
+        const newTask = {
+            id: tasks.length + 1,
+            name: taskName,
+            status: '未完成',
+            startTime: startTime,
+            endTime: endTime,
+            completed: false
+        };
+
+        tasks.push(newTask);
+        renderTasks();
+        taskForm.reset(); // 清空表單
+    });
+
+    function renderTasks() {
+        taskList.innerHTML = '';
+        const startIndex = currentPage * tasksPerPage;
+        const endIndex = startIndex + tasksPerPage;
+        const tasksToShow = tasks.slice(startIndex, endIndex);
+
+        tasksToShow.forEach(task => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="checkbox" ${task.completed ? 'checked' : ''}></td>
+                <td>${task.id}</td>
+                <td>${task.name}</td>
+                <td>${task.completed ? '已完成' : '未完成'}</td>
+                <td>${task.startTime}</td>
+                <td>${task.endTime}</td>
+            `;
+
+            const checkbox = newRow.querySelector('input[type="checkbox"]');
+            checkbox.addEventListener('change', function() {
+                task.completed = checkbox.checked;
+                task.status = checkbox.checked ? '已完成' : '未完成';
+                renderTasks();
+            });
+
+            taskList.appendChild(newRow);
+        });
+
+        prevBtn.disabled = currentPage === 0;
+        nextBtn.disabled = endIndex >= tasks.length;
+    }
+
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 0) {
+            currentPage--;
+            renderTasks();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if ((currentPage + 1) * tasksPerPage < tasks.length) {
+            currentPage++;
+            renderTasks();
+        }
+    });
+
+    // 初始渲染
+    renderTasks();
+});
+
+</script>
+
+</html>

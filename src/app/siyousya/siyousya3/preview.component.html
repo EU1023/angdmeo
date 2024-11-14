@@ -1,0 +1,75 @@
+<div class="divCss">
+    <h5 class="section">問卷時間： {{ questData.sDate }} ~ {{ questData.eDate }}</h5>
+    <h2 style="text-align: center;"> {{ questData.title }}</h2>
+    <div style="margin: 5% 0px;">
+        <span>{{ questData.explain }}</span>
+    </div>
+    <div>
+        <span style="color: red;">*</span>
+        <label>名稱：</label>
+        <span>{{ questData.userName }}</span>
+    </div><br>
+    <div>
+        <span style="color: red;">*</span>
+        <label>手機：</label>
+        <span>{{ questData.userPhone }}</span>
+    </div><br>
+    <div>
+        <label>信箱：</label>
+        <span>{{ questData.userEmail }}</span>
+    </div><br>
+    <div>
+        <label>年齡：</label>
+        <span>{{ questData.userAge }}</span>
+    </div><br>
+
+    <ol>
+        @for (quest of questData.questArray; track $index) {
+        <li>
+            <h5>
+                {{ quest.questName }}
+                @if (quest.need) {
+                <span style="color: red;">*</span>
+                }
+            </h5>
+        </li>
+            <!-- 多選M 單選Q 文字輸入T -->
+            @if (quest.type == 'M') {
+                <ol>
+                    @for (option of quest.options; track $index) {
+                        @if (option.boxBoolean) {
+                            <li>
+                                <div>
+                                    <span>{{ option.optionName }}</span>
+                                </div><br>
+                            </li>
+                        }
+                    }
+                </ol>
+            }
+
+            @if (quest.type == 'Q') {
+                @if (quest.radioAnswer) {
+                    @for (option of quest.options; track $index) {
+                        @if (quest.radioAnswer == option.code) {
+                            <span>{{ option.optionName }}</span>
+                            <br>
+                        }
+                    }
+                } @else {
+                    <span>無</span>
+                }
+            }
+
+            @if (quest.type == 'T') {
+                <h3>{{quest.answer}}</h3>
+                <!-- <textarea [(ngModel)]="quest.answer" [disabled]="true"></textarea> -->
+            }
+        }
+    </ol>
+
+    <div style="text-align: right;">
+        <button style="margin-right: 5px;" (click)="goBack()">回上頁</button>
+        <button (click)="goList()">儲存</button>
+    </div><br>
+</div>

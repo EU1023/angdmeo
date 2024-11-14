@@ -1,0 +1,131 @@
+body{
+  background-color: rgb(202, 202, 202);
+}
+
+.menu_up ul li{
+  display: inline;
+  list-style-type: none;
+  padding: 10px 10px;
+}
+
+li{
+  margin-bottom:10px;
+}
+
+.home{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+.group{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.menu_up{
+  /*定錨*/
+  z-index: 1;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+
+  width: 100%;
+  height: 6%;
+  background-color: #00721c;
+  overflow:hidden;
+}
+
+.menudiv{
+  /*定錨*/
+  z-index: 1;
+  position: fixed;
+  top: 6%;
+  left: 0%;
+
+  display: flex;
+  flex-direction: column;
+  unicode-bidi: isolate;
+  background-color: #34eb07;
+  width: 70px;
+  height: 100vh;
+}
+
+.manaka{
+  z-index: 0;
+  border-style: solid;
+  position: absolute;
+  top: 5%;
+  left: 3.8%;
+
+  width: 94%;
+  height: 93%;
+}
+
+.mat-icon{
+  font-size: 40px;
+  width: 50px;
+  height: 50px;
+  color: black;
+
+}
+
+nav a{
+  display: block;
+  padding: 10px;
+
+}
+
+nav a.newkami1:hover::before{
+  z-index: 5;
+
+  position:fixed;
+  left: 80px;
+  height: 4%;
+  width: 80px;
+
+  content:'新增問卷';
+
+  color: #fff;
+  font-size: .1 em;
+  background: #000000;
+  padding: 8px;
+  border-radius: 10px;
+
+}
+nav a.newkami2:hover::before{
+  z-index: 5;
+
+  position:fixed;
+  left: 80px;
+  height: 4%;
+  width: 80px;
+
+
+  content:'瀏覽問卷';
+
+  color: #fff;
+  font-size: .1 em;
+  background: #000000;
+  padding: 8px;
+  border-radius: 10px;
+}
+.group:hover::before{
+  z-index: 5;
+  position:fixed;
+  top: 6%;
+  right: 10px;
+  height: 4%;
+  width: 100px;
+
+  content:'登入與註冊';
+  color: #fff;
+  font-size: .1 em;
+  background: #000000;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+
+

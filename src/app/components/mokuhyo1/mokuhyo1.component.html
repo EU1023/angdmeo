@@ -1,0 +1,41 @@
+<div class="menu_up" style="position: fixed;">
+  <ul>
+    <li>
+      <a class="home" routerLink="/moguhyo1/siyousya1"> <!--首頁-->
+        <i class="" aria-hidden=""></i>
+        <mat-icon class="home_m">home</mat-icon>
+      </a>
+    </li>
+    <li>
+      <a class="group" routerLink="/moguhyo1/touroku"> <!--登入與註冊-->
+        <i class="" aria-hidden=""></i>
+        <mat-icon>group</mat-icon>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="menudiv" style="position: fixed;">
+  <nav>
+    <li class="menu">
+      <input type="checkbox" id="checkbox">
+      <label for="checkbox">
+        <mat-icon>density_small</mat-icon>
+      </label>
+    </li>
+
+
+    <a class="newkami1" routerLink="/moguhyo1/mokuhyo3"> <!--新增問卷-->
+      <mat-icon fontIcon='edit_document'></mat-icon>
+    </a>
+
+    <a class="newkami2" routerLink="/moguhyo1/mokuhyo2">
+      <mat-icon fontIcon="import_contacts"></mat-icon>
+    </a>
+
+  </nav>
+</div>
+
+<div class="manaka">
+  <router-outlet></router-outlet>
+</div>

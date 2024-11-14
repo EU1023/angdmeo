@@ -1,0 +1,108 @@
+<div style="height: 100%">
+  <div [ngClass]="{'topcoolse': input_cloose}" class="top">
+    <h3>問卷問題</h3>
+    <mat-form-field class="example-full-width">
+      <mat-label>題目</mat-label>
+      <input matInput placeholder="" value="" [(ngModel)]="questionnaireName">
+    </mat-form-field>
+    <h3>題目類型</h3>
+    <mat-form-field name="question_type" id="question_type">
+      <mat-label>選擇題型</mat-label>
+      <mat-select [(ngModel)]="question_type">
+        <mat-option value="Q">單選題</mat-option>
+        <mat-option value="M">複選題</mat-option>
+        <mat-option value="T">文字描述</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <section class="example-section">
+      <mat-checkbox class="example-margin" [(ngModel)]="must">必選</mat-checkbox>
+    </section>
+    <br>
+    <button mat-flat-button (click)="generateQuestionsQuestionnaire()">確定</button>
+  </div>
+
+  <div class="bottom">
+    <button (click)="deletedata()"  mat-fab aria-label="Example icon button with a delete icon">
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+
+        <td mat-header-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row): null"
+            [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>名稱</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>問題類型</th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="must">
+        <th mat-header-cell *matHeaderCellDef>必填</th>
+        <td mat-cell *matCellDef="let element"><input type="checkbox" [(ngModel)]="element.must"> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef>編輯</th>
+        <td mat-cell *matCellDef="let element"><button (click)="editingOptions(element)">編輯</button></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+
+  <div class="right">
+    <div style="height: 94%;">
+      @if (qQQ) {
+        <button [ngClass]="{'topcoolse': (question_type =='T'&& qa_A_id == 1)||(qa_A_id == 10)}" (click)="addQA()"><mat-icon>add</mat-icon></button>
+        <br>
+        @for (Qroduce of quest; track $index) {
+          <button (click)="deleteQA($index)"><mat-icon>close</mat-icon></button>
+          @if (Qroduce.type == 'Q') {
+            <input type="text" [(ngModel)]="Qroduce.value">
+            <br>
+          }
+          @if (Qroduce.type == 'M') {
+            <input type="text" [(ngModel)]="Qroduce.value">
+            <br>
+          }
+          @if (Qroduce.type == 'T') {
+            <input type="text" [(ngModel)]="Qroduce.value" style="width: 250px; height:300px;">
+            <br>
+          }
+        }
+        <div style="text-align: right;">
+          <button mat-flat-button (click)="addNewList()">新增</button>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="cikayan">
+    <button mat-flat-button>取消</button>
+    <button mat-flat-button (click)="goMokuhyo3()">上一步</button>
+    <button mat-flat-button (click)="goMokuhyo5()">下一步</button>
+  </div>
+</div>
+
+
+

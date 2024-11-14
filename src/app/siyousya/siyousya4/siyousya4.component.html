@@ -1,0 +1,33 @@
+@for (quest of questData.quest; track $index) {
+  <div class="divCss">
+    <!-- 判斷不是文字題就顯示圖表 -->
+    @if (quest.type != 'T') {
+      <div class="canvasCss">
+        <canvas id="{{quest.id}}"></canvas>
+      </div>
+    }
+    <div class="divText">
+      <h3>題目： {{quest.name}}</h3>
+      <!-- 判斷不是文字題就顯示選項跟數量 -->
+      <!-- 判斷是文字提就顯示文字 -->
+      @if (quest.type != 'T') {
+          @for (label of quest.labels; track $index) {
+            <h5 style="padding-left: 15px;">
+              選項： {{ quest.labels[$index] }}
+              <span style="float: right;">{{ quest.data[$index] }}</span>
+            </h5>
+          }
+      }
+    </div>
+  </div>
+}
+
+<div style="border-style:solid;padding: 3%;">
+  <h3>題目： {{questData.quest2.name}}</h3>
+  @for (data of questData.quest2.data; track $index) {
+    <h5 class="typeTCss">{{data}}</h5>
+  }
+</div>
+<div>
+  <button mat-flat-button (click)="goBack()">上一頁</button>
+</div>

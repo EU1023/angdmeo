@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動態清單</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; border: 1px solid #ddd; text-align: center; }
+        .pagination { margin-top: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>動態清單</h1>
+    <button onclick="addRow()">新增項目</button>
+    <table>
+        <thead>
+            <tr>
+                <th>□</th>
+                <th>編號</th>
+                <th>名稱</th>
+                <th>狀態</th>
+                <th>開始時間</th>
+                <th>結束時間</th>
+                <th>刪除</th>
+            </tr>
+        </thead>
+        <tbody id="dynamicList"></tbody>
+    </table>
+    <div class="pagination">
+        <button onclick="prevPage()">上一頁</button>
+        <span>頁碼: </span>
+        <input type="number" id="pageInput" min="1" value="1" onchange="goToPage()">
+        <span id="pageInfo"></span>
+        <button onclick="nextPage()">下一頁</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const itemsPerPage = 10;
+
+        async function fetchData(page) {
+            const response = await fetch(`/api/items?page=${page}&itemsPerPage=${itemsPerPage}`);
+            const data = await response.json();
+            renderTable(data.items);
+            updatePagination(data.totalPages);
+        }
+
+        function renderTable(items) {
+            const tableBody = document.getElementById("dynamicList");
+            tableBody.innerHTML = "";
+            items.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td><input type="checkbox"></td>
+                    <td>${item.id}</td>
+                    <td><input type="text" value="${item.name}" oninput="updateName(${item.id}, this.value)"></td>
+                    <td>${item.status}</td>
+                    <td><input type="datetime-local" value="${item.startTime}" onchange="updateStartTime(${item.id}, this.value)"></td>
+                    <td><input type="datetime-local" value="${item.endTime}" onchange="updateEndTime(${item.id}, this.value)"></td>
+                    <td><button onclick="deleteRow(${item.id})">刪除</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function updatePagination(totalPages) {
+            document.getElementById("pageInfo").innerText = `/ ${totalPages} 頁`;
+            document.getElementById("pageInput").max = totalPages;
+        }
+
+        async function addRow() {
+            const response = await fetch('/api/items', { method: 'POST' });
+            fetchData(currentPage);
+        }
+
+        async function deleteRow(id) {
+            await fetch(`/api/items/${id}`, { method: 'DELETE' });
+            fetchData(currentPage);
+        }
+
+        async function updateName(id, name) {
+            await fetch(`/api/items/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name })
+            });
+        }
+
+        async function updateStartTime(id, startTime) {
+            await fetch(`/api/items/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ startTime })
+            });
+            fetchData(currentPage);
+        }
+
+        async function updateEndTime(id, endTime) {
+            await fetch(`/api/items/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ endTime })
+            });
+            fetchData(currentPage);
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                fetchData(currentPage);
+            }
+        }
+
+        function nextPage() {
+            currentPage++;
+            fetchData(currentPage);
+        }
+
+        function goToPage() {
+            const inputPage = parseInt(document.getElementById("pageInput").value);
+            fetchData(inputPage);
+        }
+
+        fetchData(currentPage);  // 初始化頁面時載入數據
+    </script>
+</body>
+</html>
