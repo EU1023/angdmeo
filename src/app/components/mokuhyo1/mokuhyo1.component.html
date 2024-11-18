@@ -1,41 +1,54 @@
 <div class="menu_up" style="position: fixed;">
   <ul>
     <li>
-      <a class="home" routerLink="/moguhyo1/siyousya1"> <!--首頁-->
-        <i class="" aria-hidden=""></i>
-        <mat-icon class="home_m">home</mat-icon>
-      </a>
+      <button mat-icon-button (click)="drawer.toggle()" class="menu" for="checkbox" style="position: absolute;">
+        <mat-icon>menu</mat-icon>
+      </button>
     </li>
     <li>
-      <a class="group" routerLink="/moguhyo1/touroku"> <!--登入與註冊-->
+      <button mat-icon-button (click)="home()" class="home" for="checkbox" style="position: absolute;">
+        <mat-icon class="home_m">home</mat-icon>
+      </button>
+    </li>
+    <li>
+      <a class="group" routerLink="/moguhyo1/touroku"> <!--管理者登入-->
         <i class="" aria-hidden=""></i>
-        <mat-icon>group</mat-icon>
+        <mat-icon>manage_accounts</mat-icon>
       </a>
     </li>
   </ul>
 </div>
-
-<div class="menudiv" style="position: fixed;">
+<!-- <div class="menudiv">
   <nav>
-    <li class="menu">
-      <input type="checkbox" id="checkbox">
-      <label for="checkbox">
-        <mat-icon>density_small</mat-icon>
-      </label>
-    </li>
+    <label class="menu" for="checkbox" style="padding: 10px;">
+      <mat-icon fontIcon="density_small"></mat-icon>
+    </label>
 
-
-    <a class="newkami1" routerLink="/moguhyo1/mokuhyo3"> <!--新增問卷-->
+    <a class="newkami1" routerLink="/moguhyo1/mokuhyo3">
       <mat-icon fontIcon='edit_document'></mat-icon>
     </a>
 
     <a class="newkami2" routerLink="/moguhyo1/mokuhyo2">
       <mat-icon fontIcon="import_contacts"></mat-icon>
     </a>
-
   </nav>
-</div>
+</div> -->
 
-<div class="manaka">
-  <router-outlet></router-outlet>
-</div>
+<mat-drawer-container class="menudiv" autosize>
+  <mat-drawer #drawer class="example-sidenav"  mode="over">
+    <nav>
+      <a class="newkami1" routerLink="/moguhyo1/mokuhyo3">
+        <mat-icon fontIcon='edit_document' (click)="drawer.toggle()"></mat-icon>
+      </a>
+
+      <a class="newkami2" routerLink="/moguhyo1/mokuhyo2">
+        <mat-icon fontIcon="import_contacts" (click)="drawer.toggle()"></mat-icon>
+      </a>
+    </nav>
+  </mat-drawer>
+  <div class="manaka">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
+
+

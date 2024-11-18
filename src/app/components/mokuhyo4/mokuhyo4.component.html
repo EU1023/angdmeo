@@ -57,7 +57,7 @@
       <!-- Symbol Column -->
       <ng-container matColumnDef="must">
         <th mat-header-cell *matHeaderCellDef>必填</th>
-        <td mat-cell *matCellDef="let element"><input type="checkbox" [(ngModel)]="element.must"> </td>
+        <td mat-cell *matCellDef="let element"><input type="checkbox"  [disabled]="true" [(ngModel)]="element.must"> </td>
       </ng-container>
 
       <ng-container matColumnDef="edit">

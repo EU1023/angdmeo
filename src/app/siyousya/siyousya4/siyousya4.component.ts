@@ -68,6 +68,12 @@ export class Siyousya4Component {
       // 使用題目ID當作canvas的ID來分類
       // 否則ID重複程式會失敗
       let ctx = document.getElementById(outint.id) as HTMLCanvasElement;
+      if (!ctx) {
+        setTimeout(() => {
+          this.createPie();
+        }, 1000);
+        return;
+      }
 
       // 設定數據
       let data_for = {

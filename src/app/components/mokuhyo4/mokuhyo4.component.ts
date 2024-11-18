@@ -1,3 +1,4 @@
+import { initialDataService } from './../../@services/initial-data-service';
 import { NgClass } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ChangeDetectionStrategy, Component, computed, signal, ViewChild } from '@angular/core';
@@ -25,7 +26,9 @@ import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/ro
   styleUrl: './mokuhyo4.component.scss'
 })
 export class Mokuhyo4Component {
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private initialdataService: initialDataService,
+  ) { };
   //問題編號
   idQA: number = 0;
   //問題名稱
@@ -120,7 +123,7 @@ export class Mokuhyo4Component {
       type: type,
       must: this.must,
       edit: '',
-      quest:this.quest
+      quest: this.quest
     })
 
     this.input_Questionnaire_only = [];
@@ -153,7 +156,7 @@ export class Mokuhyo4Component {
     };
 
     this.must = element.must;
-    for(let quest of element.quest){
+    for (let quest of element.quest) {
       this.quest.push(quest);
     };
 
@@ -176,7 +179,7 @@ export class Mokuhyo4Component {
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
-
+  //刪除列表
   deletedata() {
     // 濾除被選取的資料列
     this.dataSource.data = this.dataSource.data.filter(row => !this.selection.isSelected(row));
@@ -189,7 +192,15 @@ export class Mokuhyo4Component {
     this.router.navigate(['/moguhyo1/mokuhyo3']);
   }
   goMokuhyo5() {
-    this.router.navigate(['/moguhyo1/mokuhyo5']);
+    //判斷空問卷
+    if (!this.dataSource) {
+      alert('請新增問卷問題');
+      return;
+    } else {
+      this.initialdataService.qaNewnaiyodata = this.input_Questionnaire_Array;
+      this.router.navigate(['/moguhyo1/mokuhyo5']);
+    }
+
   }
 
 

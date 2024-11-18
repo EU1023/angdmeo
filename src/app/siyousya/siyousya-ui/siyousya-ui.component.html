@@ -1,0 +1,21 @@
+<div class="menu_up" style="position: fixed;">
+  <ul>
+    <li>
+      <button mat-icon-button (click)="home()" class="home" for="checkbox" style="position: absolute;">
+        <mat-icon class="home_m">home</mat-icon>
+      </button>
+    </li>
+    <li>
+      <button mat-icon-button (click)="touroku()" class="group" for="checkbox" style="position: absolute;">
+        <mat-icon>manage_accounts</mat-icon>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div  class="menudiv">
+  <div class="manaka">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

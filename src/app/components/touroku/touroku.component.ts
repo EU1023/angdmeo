@@ -1,43 +1,33 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Managedata } from '../../@services/managedata';
 
 @Component({
   selector: 'app-touroku',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule],
+  imports: [FormsModule,
+            ReactiveFormsModule,
+            ],
   templateUrl: './touroku.component.html',
   styleUrl: './touroku.component.scss'
 })
 export class TourokuComponent {
-
+  constructor(
+    private router: Router,
+    private managedata: Managedata,) {}
   //form列表 可用於登入
   form: FormGroup = new FormGroup({
     account: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    name: new FormControl('', Validators.required),
   })
 
-  loginRegiser1:boolean = true;
-  loginRegiser2:boolean = false;
   //登入鍵
   showfromDataLogin(){
-    console.log(this.form.value);
-  }
-  //確定註冊鍵
-  registerSure(){
 
-  }
-  //註冊鍵
-  register(){
-    this.loginRegiser1 = false;
-    this.loginRegiser2 = true;
-
-  }
-  //返回登入鍵
-  returnToLogin(){
-    this.loginRegiser1 = true;
-    this.loginRegiser2 = false;
+    this.managedata.manage = 0;
+    console.log(this.managedata.manage);
+    this.router.navigate(['/moguhyo1/siyousya1']);
   }
 
 

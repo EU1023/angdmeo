@@ -2,6 +2,8 @@ import { ExampleService } from './@services/example-service';
 import {Component,} from '@angular/core';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/router';
 
+import { Managedata } from './@services/managedata';
+
 import { TourokuComponent } from './components/touroku/touroku.component';
 import { Mokuhyo1Component } from './components/mokuhyo1/mokuhyo1.component';
 import { Mokuhyo2Component } from './components/mokuhyo2/mokuhyo2.component';
@@ -20,31 +22,32 @@ import { HttpClientService } from './http-service/http-client.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule} from '@angular/material/icon';
 import { Component1Component } from "./component1/component1.component";
+import { SiyousyaUiComponent } from "./siyousya/siyousya-ui/siyousya-ui.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [Component1Component,
-            RouterOutlet, MatIconModule, RouterLink,
-            RouterLinkActive, TourokuComponent,
-            MatPaginator,MatPaginatorModule,MatTableModule,
-            Mokuhyo1Component, Mokuhyo2Component,Mokuhyo3Component,Mokuhyo4Component,Mokuhyo5Component,Mokuhyo6Component,Mokuhyo7Component,Mokuhyo8Component,
-            FormsModule,ReactiveFormsModule,
-            DilalogComponent
-             ], //組件位置
+    RouterOutlet, MatIconModule, RouterLink,
+    RouterLinkActive, TourokuComponent,
+    MatPaginator, MatPaginatorModule, MatTableModule,
+    Mokuhyo1Component, Mokuhyo2Component,Mokuhyo5Component, Mokuhyo3Component, Mokuhyo4Component, Mokuhyo6Component, Mokuhyo7Component, Mokuhyo8Component,
+    FormsModule, ReactiveFormsModule,
+    DilalogComponent, SiyousyaUiComponent], //組件位置
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 
 export class AppComponent {
   title = 'angdmeo';
-
+  manage!:number;
   constructor(private http: HttpClientService,
-              private exampleService: ExampleService){
-  }
+              private exampleService: ExampleService,
+              private manageData:Managedata,){}
 
-  ngOnInit(): void{
+  ngOnInit(){
+    this.manage=this.manageData.manage;
   }
 
   //form列表 可用於登入

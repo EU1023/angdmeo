@@ -10,6 +10,7 @@ import { Mokuhyo3Component } from './components/mokuhyo3/mokuhyo3.component';
 import { Mokuhyo4Component } from './components/mokuhyo4/mokuhyo4.component';
 import { Mokuhyo5Component } from './components/mokuhyo5/mokuhyo5.component';
 import { Mokuhyo8Component } from './components/mokuhyo8/mokuhyo8.component';
+import { SiyousyaUiComponent } from './siyousya/siyousya-ui/siyousya-ui.component';
 import { Siyousya1Component } from './siyousya/siyousya1/siyousya1.component';
 import { Siyousya2Component } from './siyousya/siyousya2/siyousya2.component';
 import { Siyousya3Component } from './siyousya/siyousya3/siyousya3.component';
@@ -26,6 +27,14 @@ export const routes: Routes = [
     { path: 'mokuhyo4', component: Mokuhyo4Component },
     { path: 'mokuhyo5', component: Mokuhyo5Component },
     { path: 'mokuhyo8', component: Mokuhyo8Component },
+    { path: 'siyousya1', component: Siyousya1Component },
+    { path: 'siyousya2', component: Siyousya2Component },
+    { path: 'siyousya3', component: Siyousya3Component },
+    { path: 'siyousya4', component: Siyousya4Component },
+  ]},
+  { path: 'siyousyaui', component: SiyousyaUiComponent, children:[
+    { path: '', redirectTo: '/siyousyaui/siyousya1', pathMatch: 'full'},
+    { path: 'touroku', component: TourokuComponent },
     { path: 'siyousya1', component: Siyousya1Component },
     { path: 'siyousya2', component: Siyousya2Component },
     { path: 'siyousya3', component: Siyousya3Component },

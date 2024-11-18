@@ -1,3 +1,5 @@
+import { initialDataService } from './../../@services/initial-data-service';
+
 import { Component } from '@angular/core';
 import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule} from '@angular/material/form-field';
@@ -21,7 +23,9 @@ import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/ro
   styleUrl: './mokuhyo3.component.scss'
 })
 export class Mokuhyo3Component {
-  constructor(private router: Router){}
+  constructor(private router: Router,
+              private initialdataservice: initialDataService,
+  ){}
 
   questionnaireName !: string;
   questionnaireContent !: string;
@@ -39,7 +43,18 @@ export class Mokuhyo3Component {
   readonly minDate2 = new Date(this.fdata);
 
   goMokuhyo4(){
-    this.router.navigate(['/moguhyo1/mokuhyo4']);
+    if(this.questionnaireName==null||this.questionnaireContent==null||this.edata == null){
+      alert('請輸入內容');
+      return;
+    }else{
+      this.initialdataservice.qaNewdata = {
+        qaNamedata: this.questionnaireName,
+        qaContentdata: this.questionnaireContent,
+        startTime:(this.fdata.getFullYear() + '/' + (this.fdata.getMonth() + 1) + '/' + this.fdata.getDate()),
+        endTime:(this.edata.getFullYear()+'/'+(this.edata.getMonth()+1) +'/' + this.edata.getDate()),
+      };
+      this.router.navigate(['/moguhyo1/mokuhyo4'])
+    }
   }
 
 }
