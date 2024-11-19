@@ -29,7 +29,7 @@ export class Mokuhyo5Component {
   userAge!: string;
 
   initialData!:any;
-
+  qaNewdata!:any;
   constructor(
     private initialdataService: initialDataService,
     private questService: QuestService,
@@ -37,11 +37,12 @@ export class Mokuhyo5Component {
   ) {}
 
   ngOnInit(): void {
+    this.qaNewdata=this.initialdataService.qaNewdata;
     this.initialdataService.qaNew();
-    this.initialData = this.initialdataService.Newdata;
-    // console.log(this.initialdataService.qaNewdata);
-    // console.log(this.initialdataService.qaNewnaiyodata);
+    this.initialData = this.initialdataService.qaNewnaiyodata;
+
     console.log(this.initialData);
+    //?
     if (!this.questService.questData) {
       this.tidyQuestArray();
     } else {
@@ -95,18 +96,26 @@ export class Mokuhyo5Component {
 
   //資料放入newQuestArray for產生列表格數
   tidyQuestArray() {
-    for (let array of this.initialData.Newdata) {
+    for (let array of this.initialData) {
       this.newQuestArray.push({ ...array, answer: '', radioAnswer: '' });
     }
 
     for (let newArray of this.newQuestArray) {
       let options = [];
-      for (let option of newArray.options) {
+      for (let option of newArray.quest) {
         options.push({ ...option, boxBoolean: false });
       }
       newArray.options = options;
     }
   }
+
+  goMokuhyo4(){
+    this.router.navigate(['/moguhyo1/mokuhyo4']);
+  }
+
+
+
+
   //資料傳送伺服器 暫存
   goMokuhyo7() {
     // if (this.checkNeed()) {

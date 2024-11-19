@@ -11,5 +11,15 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './mokuhyo7.component.scss'
 })
 export class Mokuhyo7Component {
+  displayedColumns: string[] = ['select', 'id', 'name', 'state', 'start_time', 'end_time', 'GoTo'];
+  // dataSource = new MatTableDataSource<PeriodicElement>();
 
+}
+export interface PeriodicElement {
+  id: number;
+  name: string;
+  state: string;
+  start_time: string;
+  end_time: string;
+  GoTo: string;
 }

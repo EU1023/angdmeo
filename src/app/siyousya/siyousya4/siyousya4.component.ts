@@ -71,7 +71,7 @@ export class Siyousya4Component {
       if (!ctx) {
         setTimeout(() => {
           this.createPie();
-        }, 1000);
+        }, 500);
         return;
       }
 

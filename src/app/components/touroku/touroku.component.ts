@@ -25,7 +25,7 @@ export class TourokuComponent {
   //登入鍵
   showfromDataLogin(){
 
-    this.managedata.manage = 0;
+    this.managedata.manage = true;
     console.log(this.managedata.manage);
     this.router.navigate(['/moguhyo1/siyousya1']);
   }

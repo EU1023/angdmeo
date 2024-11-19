@@ -41,7 +41,7 @@ import { SiyousyaUiComponent } from "./siyousya/siyousya-ui/siyousya-ui.componen
 
 export class AppComponent {
   title = 'angdmeo';
-  manage!:number;
+  manage!:boolean;
   constructor(private http: HttpClientService,
               private exampleService: ExampleService,
               private manageData:Managedata,){}
@@ -50,12 +50,8 @@ export class AppComponent {
     this.manage=this.manageData.manage;
   }
 
-  //form列表 可用於登入
-  form: FormGroup = new FormGroup({
-    account: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-  })
-  showfromData(){
-    console.log(this.form.value);
+  ngDoCheck(): void {
+    this.manage=this.manageData.manage;
   }
+
 }

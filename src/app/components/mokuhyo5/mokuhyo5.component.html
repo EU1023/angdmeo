@@ -1,6 +1,6 @@
-<h1>{{initialData.title}}</h1>
+<h1>{{qaNewdata.qaNamedata}}</h1>
 <div class="siyousya">
-  <p>{{initialData.ex}}</p>
+  <p>{{qaNewdata.qaContentdata}}</p>
   <br>
   <div id="auth-form" class="form active">
     <label>名字:</label>
@@ -23,36 +23,35 @@
     @for (quest of newQuestArray; track $index) {
         <li>
             <h5>
-                {{ quest.quName }}
-                @if (quest.need) {
+                {{ quest.name }}
+                @if (quest.must) {
                     <span style="color: red;">*</span>
                 }
             </h5>
         </li>
         <!-- 多選M 單選Q 文字輸入T -->
-        @if (quest.type == 'M') {
-            @for (option of quest.options; track $index) {
+        @if (quest.type == '複選題') {
+            @for (option of quest.quest; track $index) {
                 <div>
                     <input type="checkbox" [(ngModel)]="option.boxBoolean">
-                    {{ option.optionName }}
+                    {{ option.valueName }}
                 </div>
-                <br>
             }
             <br>
         }
 
-        @if (quest.type == 'Q') {
-            @for (option of quest.options; track $index) {
-                <input type="radio" name="{{quest.questId}}" value="{{option.code}}"
+        @if (quest.type == '單選題') {
+            @for (option of quest.quest; track $index) {
+                <input type="radio" name="{{quest.id}}" value="{{option.QeCode}}"
                        [(ngModel)]="quest.radioAnswer">
-                    {{ option.optionName }}
+                    {{ option.valueName }}
                 <br>
 
             }
             <br>
         }
 
-        @if (quest.type == 'T') {
+        @if (quest.type == '文字描述') {
             <textarea style="height: 150px; width: 60%;" [(ngModel)]="quest.answer"></textarea>
             <br>
         }
@@ -62,7 +61,7 @@
 
 <div class="botam">
   <button mat-flat-button >取消</button>
-  <button mat-flat-button>上一步</button>
+  <button mat-flat-button (click)="goMokuhyo4()">上一步</button>
   <button mat-flat-button>儲存</button>
   <button mat-flat-button (click)="goMokuhyo7()">儲存並發布</button>
 </div>

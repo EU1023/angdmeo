@@ -74,20 +74,20 @@
   <div class="right">
     <div style="height: 94%;">
       @if (qQQ) {
-        <button [ngClass]="{'topcoolse': (question_type =='T'&& qa_A_id == 1)||(qa_A_id == 10)}" (click)="addQA()"><mat-icon>add</mat-icon></button>
+        <button [ngClass]="{'topcoolse': (question_type =='T')||(qa_A_id == 10)}" (click)="addQA()"><mat-icon>add</mat-icon></button>
         <br>
         @for (Qroduce of quest; track $index) {
           <button (click)="deleteQA($index)"><mat-icon>close</mat-icon></button>
           @if (Qroduce.type == 'Q') {
-            <input type="text" [(ngModel)]="Qroduce.value">
+            <input type="text" [(ngModel)]="Qroduce.valueName">
             <br>
           }
           @if (Qroduce.type == 'M') {
-            <input type="text" [(ngModel)]="Qroduce.value">
+            <input type="text" [(ngModel)]="Qroduce.valueName">
             <br>
           }
           @if (Qroduce.type == 'T') {
-            <input type="text" [(ngModel)]="Qroduce.value" style="width: 250px; height:300px;">
+            <input type="text" [disabled]="true" [(ngModel)]="Qroduce.valueName">
             <br>
           }
         }

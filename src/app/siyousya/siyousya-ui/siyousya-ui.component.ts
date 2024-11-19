@@ -25,20 +25,19 @@ export class SiyousyaUiComponent {
     private mangeData: Managedata,
   ) { }
   home() {
-    if(this.mangeData.manage==null){
+    if(this.mangeData.manage==false){
       this.router.navigate(['/siyousyaui/siyousya1']);
-    }else if(this.mangeData.manage==0){
+    }else if(this.mangeData.manage==true){
       this.router.navigate(['/moguhyo1/siyousya1']);
     }
   }
   touroku(){
-    if(this.mangeData.manage==null){
+    if(this.mangeData.manage==false){
       this.router.navigate(['/siyousyaui/touroku']);
-    }else if(this.mangeData.manage==0){
+    }else if(this.mangeData.manage==true){
       this.router.navigate(['/moguhyo1/touroku']);
     }
   }
   ngOnInit(){
-    console.log(this.mangeData);
   };
 }

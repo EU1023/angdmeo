@@ -6,6 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { Managedata } from '../../@services/managedata';
+import { flatMap } from 'rxjs';
 @Component({
   selector: 'app-mokuhyo1',
   standalone: true,
@@ -25,28 +26,21 @@ export class Mokuhyo1Component {
               private mangeData: Managedata,
   ){}
   home(){
-    if(this.mangeData.manage==null){
+    if(this.mangeData.manage==false){
       this.router.navigate(['/siyousyaui/siyousya1']);
-    }else if(this.mangeData.manage==0){
+    }else if(this.mangeData.manage==true){
       this.router.navigate(['/moguhyo1/siyousya1']);
     }
 
   }
-  touroku(){
-    if(this.mangeData.manage==null){
-      this.router.navigate(['/siyousyaui/touroku']);
-    }else if(this.mangeData.manage==0){
-      this.router.navigate(['/moguhyo1/touroku']);
-    }
+
+  logout(){
+    this.mangeData.manage=false;
+    this.router.navigate(['/siyousyaui/siyousya1']);
   }
 
   ngOnInit(){
-    console.log(this.mangeData);
+
   };
 
-  ngDoCheck(): void {
-    //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
-    //Add 'implements DoCheck' to the class.
-    console.log(this.mangeData);
-  }
 }

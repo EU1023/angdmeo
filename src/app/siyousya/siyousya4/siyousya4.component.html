@@ -12,7 +12,7 @@
       <!-- 判斷是文字提就顯示文字 -->
       @if (quest.type != 'T') {
           @for (label of quest.labels; track $index) {
-            <h5 style="padding-left: 15px;">
+            <h5 class="forText" style="padding-left: 15px;">
               選項： {{ quest.labels[$index] }}
               <span style="float: right;">{{ quest.data[$index] }}</span>
             </h5>

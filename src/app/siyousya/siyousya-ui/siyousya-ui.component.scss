@@ -1,29 +1,34 @@
-.menu_up ul li{
-  display: inline;
+.menu_up ul li {
+  // display: inline;
   list-style-type: none;
-  padding: 10px 10px;
+  // padding: 10px 10px;
 }
-.menu{
+
+.menu {
   position: fixed;
   left: 0px;
 
 }
 
-.home{
-  padding: 8px;
-  position:absolute;
-  top: 0px;
+.example-spacer {
+  flex: 1 1 auto;
 }
 
-.group{
+.home {
+  padding: 8px;
+  position: absolute;
+  top: 5%;
+}
+
+.group {
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 5%;
 }
 
-.menu_up{
+.menu_up {
   /*定錨*/
-  z-index: 1;
+  z-index: 10;
   position: fixed;
   top: 0%;
   left: 0%;
@@ -31,12 +36,12 @@
   width: 100%;
   height: 6%;
   background-color: #ffffff;
-  overflow:hidden;
+  overflow: hidden;
 }
 
-.menudiv{
+.menudiv {
   /*定錨*/
-  z-index: 1;
+  z-index: 0;
   position: fixed;
   top: 6%;
   left: 0%;
@@ -44,11 +49,15 @@
   display: flex;
   flex-direction: column;
   unicode-bidi: isolate;
-  background-color: #ffcf97;
+  background-color: #f7d8b5;
   border: 1px solid;
   width: 100%;
   height: 100%;
 }
+
+// .mat-mdc-header-row {
+//   background-color: #a5753e;
+// }
 
 .example-sidenav-content {
   display: flex;
@@ -62,9 +71,9 @@
   width: 80px;
 }
 
-.manaka{
+.manaka {
   z-index: 0;
-  border-style: solid;
+  // border-style: solid;
   position: absolute;
   top: 2%;
   left: 3.8%;
@@ -75,7 +84,7 @@
 
 
 
-.mat-icon{
+.mat-icon {
   font-size: 40px;
   width: 50px;
   height: 50px;
@@ -83,7 +92,8 @@
 
 }
 
-nav a,nav label{
+nav a,
+nav label {
   display: block;
   padding: 10px;
 
@@ -92,51 +102,19 @@ nav a,nav label{
 // a{text-decoration:none}
 // a:hover{text-decoration:none}
 
-nav a.newkami1:hover::before{
-  z-index: 5;
-
-  position:fixed;
-  left: 80px;
-  height: 4%;
-  width: 80px;
-
-  content:'新增問卷';
-
-  color: #fff;
-  font-size: .1 em;
-  background: #000000;
-  padding: 8px;
-  border-radius: 10px;
-
-}
-nav a.newkami2:hover::before{
-  z-index: 5;
-
-  position:fixed;
-  left: 80px;
-  height: 4%;
-  width: 80px;
 
 
-  content:'瀏覽問卷';
-
-  color: #fff;
-  font-size: .1 em;
-  background: #000000;
-  padding: 8px;
-  border-radius: 10px;
-}
-.group:hover::before{
-  z-index: 5;
-  position:fixed;
+.group:hover::before {
+  z-index: 10;
+  position: fixed;
   top: 6%;
   right: 10px;
-  height: 4%;
-  width: 100px;
+  height: 5%;
+  width: 10%;
 
-  content:'登入與註冊';
+  content: '管理者登入';
   color: #fff;
-  font-size: .1 em;
+  font-size: 20px;
   background: #000000;
   padding: 8px;
   border-radius: 10px;
@@ -144,3 +122,62 @@ nav a.newkami2:hover::before{
 
 
 
+// body {
+//   margin: 0;
+//   min-height: 100vh;
+//   background-color: #e493d0;
+//   background-image:
+//     radial-gradient(closest-side, rgba(255, 217, 30, 1), rgba(255, 217, 30, 0)),
+//     radial-gradient(closest-side, rgb(255, 125, 38, 1), rgba(255, 125, 38, 0)),
+//     radial-gradient(closest-side, rgba(162, 0, 226, 1), rgba(162, 0, 226, 0)),
+//     radial-gradient(closest-side, rgb(61, 249, 255, 1), rgba(61, 249, 255, 0)),
+//     radial-gradient(closest-side, rgb(255, 48, 48, 1), rgba(255, 48, 48, 0)) !important;
+//   background-size:
+//     130vmax 130vmax,
+//     80vmax 80vmax,
+//     90vmax 90vmax,
+//     110vmax 110vmax,
+//     90vmax 90vmax;
+//   background-position:
+//     -80vmax -80vmax,
+//     60vmax -30vmax,
+//     10vmax 10vmax,
+//     -30vmax -10vmax,
+//     50vmax 50vmax;
+//   background-repeat: no-repeat;
+//   animation: 10s movement linear infinite;
+// }
+
+// @keyframes movement {
+
+//   0%,
+//   100% {
+//     background-size:
+//       130vmax 130vmax,
+//       80vmax 80vmax,
+//       90vmax 90vmax,
+//       110vmax 110vmax,
+//       90vmax 90vmax;
+//     background-position:
+//       -80vmax -80vmax,
+//       60vmax -30vmax,
+//       10vmax 10vmax,
+//       -30vmax -10vmax,
+//       50vmax 50vmax;
+//   }
+
+//   25% {
+//     background-size:
+//       100vmax 100vmax,
+//       90vamx 90vamx,
+//       100vamx 100vamx,
+//       90vamx 90vamx,
+//       60vamx 60vamx;
+//     background-position:
+//       -60vmax -90vmax,
+//       50vmax -40vmax,
+//       0vmax -20vmax,
+//       -40vmax -20vmax,
+//       40vmax 60vmax;
+//   }
+// }

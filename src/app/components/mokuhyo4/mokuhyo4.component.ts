@@ -85,9 +85,9 @@ export class Mokuhyo4Component {
   //加問題格數方法
   iPuQuOnPush() {
     this.quest.push({
-      QeNumber: this.qa_A_id,
+      QeCode: this.qa_A_id,
       type: this.question_type,
-      value: '',
+      valueName: '',
     });
   }
 
@@ -114,7 +114,6 @@ export class Mokuhyo4Component {
     };
 
     this.idQA++;
-
     console.log(this.input_Questionnaire_Array);
     // console.log(this.qData);
     this.input_Questionnaire_Array.push({
@@ -125,7 +124,7 @@ export class Mokuhyo4Component {
       edit: '',
       quest: this.quest
     })
-
+    //清空陣列
     this.input_Questionnaire_only = [];
     this.quest = [];
 

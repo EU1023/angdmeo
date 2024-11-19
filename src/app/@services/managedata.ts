@@ -7,6 +7,5 @@ import { Router } from "@angular/router";
 
 export class Managedata{
   constructor(private router: Router){};
-  manage!:number;
-  // manage:number=0;
+  manage:boolean=false;
 }
