@@ -58,7 +58,7 @@ export class Siyousya4Component {
   }
 
   goBack() {
-    this.router.navigate(['/moguhyo1/siyousya1']);
+    this.router.navigate(['/siyousyaui/siyousya1']);
   }
 
   createPie() {
@@ -95,7 +95,7 @@ export class Siyousya4Component {
         // 創建圖表
         let chart = new Chart(ctx, {
           //pie是圓餅圖,doughnut是環狀圖
-          type: 'pie',
+          type: 'doughnut',
           data: data_for,
         });
       }

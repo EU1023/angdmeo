@@ -27,11 +27,11 @@ export class Siyousya3Component {
   }
 
   goSiyousya2(){
-    this.router.navigate(['/moguhyo1/siyousya2']);
+    this.router.navigate(['/siyousyaui/siyousya2']);
   }
 
   goHome(){
     this.questService.questData = null;
-    this.router.navigate(['/moguhyo1/siyousya1']);
+    this.router.navigate(['/siyousyaui/siyousya1']);
   }
 }

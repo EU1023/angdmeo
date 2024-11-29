@@ -3,24 +3,6 @@
   list-style-type: none;
   padding: 10px 10px;
 }
-.menu{
-  position: fixed;
-  left: 0px;
-  top: 10%;
-
-}
-
-.home{
-  padding: 8px;
-  position:absolute;
-  top: 10%;
-}
-
-.group{
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
 
 
 .menu_up{
@@ -32,9 +14,51 @@
 
   width: 100%;
   height: 6%;
-  background-color: #ffffff;
+  background-color: #000000;
   overflow:hidden;
+
+  .menu{
+    padding: 0%;
+    position: fixed;
+    left: 0px;
+    top: 10%;
+  }
+
+  .home{
+    padding: 0%;
+    position:absolute;
+    left: 3%;
+    top: 10%;
+  }
+
+  .group{
+    padding: 0%;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  .group:hover::before{
+    z-index: 5;
+    position:fixed;
+    top: 6%;
+    right: 10px;
+    height: 4%;
+    width: 100px;
+
+    content:'登入與註冊';
+    color: #fff;
+    font-size: .1 em;
+    background: #000000;
+    padding: 8px;
+    border-radius: 10px;
+  }
+  .example-spacer {
+    flex: 1 1 auto;
+  }
 }
+
+
 
 .menudiv{
   /*定錨*/
@@ -50,6 +74,52 @@
   border: 1px solid;
   width: 100%;
   height: 100%;
+
+  nav a.newkami1:hover::before{
+    z-index: 5;
+
+    position:fixed;
+    left: 80px;
+    height: 4%;
+    width: 80px;
+
+    content:'新增問卷';
+
+    color: #fff;
+    font-size: .1 em;
+    background: #000000;
+    padding: 8px;
+    border-radius: 10px;
+
+  }
+  nav a.newkami2:hover::before{
+    z-index: 5;
+
+    position:fixed;
+    left: 80px;
+    height: 4%;
+    width: 80px;
+
+
+    content:'瀏覽問卷';
+
+    color: #fff;
+    font-size: .1 em;
+    background: #000000;
+    padding: 8px;
+    border-radius: 10px;
+  }
+
+  .manaka{
+    z-index: 0;
+    border-style: solid;
+    position: absolute;
+    top: 2%;
+    left: 3.8%;
+
+    width: 94%;
+    height: 90vh;
+  }
 }
 
 .example-sidenav-content {
@@ -62,18 +132,10 @@
 .example-sidenav {
   padding: 10px;
   width: 80px;
+  background-color: #000000;
 }
 
-.manaka{
-  z-index: 0;
-  // border-style: solid;
-  position: absolute;
-  top: 2%;
-  left: 3.8%;
 
-  width: 94%;
-  height: 105%;
-}
 
 
 
@@ -81,8 +143,7 @@
   font-size: 40px;
   width: 50px;
   height: 50px;
-  color: black;
-
+  color: rgb(255, 255, 255);
 }
 
 nav a,nav label{
@@ -94,55 +155,8 @@ nav a,nav label{
 // a{text-decoration:none}
 // a:hover{text-decoration:none}
 
-nav a.newkami1:hover::before{
-  z-index: 5;
-
-  position:fixed;
-  left: 80px;
-  height: 4%;
-  width: 80px;
-
-  content:'新增問卷';
-
-  color: #fff;
-  font-size: .1 em;
-  background: #000000;
-  padding: 8px;
-  border-radius: 10px;
-
-}
-nav a.newkami2:hover::before{
-  z-index: 5;
-
-  position:fixed;
-  left: 80px;
-  height: 4%;
-  width: 80px;
 
 
-  content:'瀏覽問卷';
-
-  color: #fff;
-  font-size: .1 em;
-  background: #000000;
-  padding: 8px;
-  border-radius: 10px;
-}
-.group:hover::before{
-  z-index: 5;
-  position:fixed;
-  top: 6%;
-  right: 10px;
-  height: 4%;
-  width: 100px;
-
-  content:'登入與註冊';
-  color: #fff;
-  font-size: .1 em;
-  background: #000000;
-  padding: 8px;
-  border-radius: 10px;
-}
 
 
 

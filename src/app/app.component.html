@@ -4,15 +4,17 @@
 
 <!-- <app-component1></app-component1> -->
 
-@if(manage==true){
-  <app-siyousya-ui></app-siyousya-ui>
-}@else{
+<!-- 不能以這樣去呼叫子路由 會呼叫兩次父路由@if(manage==true){
   <app-mokuhyo1></app-mokuhyo1>
-}
+
+}@else{
+  <app-siyousya-ui></app-siyousya-ui>
+} -->
 
 <!-- <app-mokuhyo1></app-mokuhyo1> -->
 
 <!-- <app-siyousya-ui></app-siyousya-ui> -->
+<router-outlet></router-outlet>
 
 
 <!--app-mokuhyo2></app-mokuhyo2-->

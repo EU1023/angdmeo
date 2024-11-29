@@ -74,7 +74,7 @@ export class Siyousya1Component {
 
     let Sdata;
     if (!this.fdata) {
-      Sdata = this.fdata.getFullYear() + '/' + (this.fdata.getMonth() + 1) + '/0' + this.fdata.getDate();
+      Sdata = this.fdata.getFullYear() + '/' + (this.fdata.getMonth() + 1) + '/' + this.fdata.getDate();
     }
     this.dS = this.dataSource.data;
     // console.log(Sdata);
@@ -91,8 +91,6 @@ export class Siyousya1Component {
           tidyData.push(array);
         }
       }
-
-
     }else if(!this.fdata){
       //結束時間
       for (let array of this.dS){

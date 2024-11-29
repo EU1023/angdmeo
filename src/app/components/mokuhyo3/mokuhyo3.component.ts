@@ -17,7 +17,6 @@ import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/ro
   imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatButtonModule, MatDividerModule, MatIconModule,
     FormsModule,
-    RouterOutlet, RouterLink, RouterLinkActive
   ],
   templateUrl: './mokuhyo3.component.html',
   styleUrl: './mokuhyo3.component.scss'
@@ -47,11 +46,13 @@ export class Mokuhyo3Component {
       alert('請輸入內容');
       return;
     }else{
-      this.initialdataservice.qaNewdata = {
-        qaNamedata: this.questionnaireName,
-        qaContentdata: this.questionnaireContent,
-        startTime:(this.fdata.getFullYear() + '/' + (this.fdata.getMonth() + 1) + '/' + this.fdata.getDate()),
-        endTime:(this.edata.getFullYear()+'/'+(this.edata.getMonth()+1) +'/' + this.edata.getDate()),
+      this.initialdataservice.quiz = {
+
+        name: this.questionnaireName,
+        description: this.questionnaireContent,
+        start_date:(this.fdata.getFullYear() + '/' + (this.fdata.getMonth() + 1) + '/' + this.fdata.getDate()),
+        end_date:(this.edata.getFullYear()+'/'+(this.edata.getMonth()+1) +'/' + this.edata.getDate()),
+        published:true,
       };
       this.router.navigate(['/moguhyo1/mokuhyo4'])
     }

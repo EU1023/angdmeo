@@ -30,13 +30,15 @@ export class Mokuhyo4Component {
     private initialdataService: initialDataService,
   ) { };
   //問題編號
-  idQA: number = 0;
+  ques_id: number = 0;
   //問題名稱
-  questionnaireName !: string;
+  ques_name !: string;
   //問題類型
-  question_type!: string;
+  type!: string;
   //必填
-  must: boolean = false;
+  required: boolean = false;
+
+  editSure = false;
 
 
   //輸入問卷數陣列
@@ -53,25 +55,34 @@ export class Mokuhyo4Component {
   qQQ: boolean = false;
   //Q單選 M複選 T文字
   generateQuestionsQuestionnaire() {
-    if (this.questionnaireName == null || this.question_type == null) {
+    if (this.ques_name == null || this.type == null) {
       alert('請在題目或選擇題型輸入內容');
       return;
     } else {
       this.input_Questionnaire_only.push({
-        id: this.idQA,
-        type: this.question_type,
-        name: this.questionnaireName,
-        must: this.must,
+        ques_id: this.ques_id,
+        type: this.type,
+        name: this.ques_name,
+        required: this.required,
         // quest: [],
       });
     }
 
-    this.iPuQuOnPush();
+    if (this.type == "Q" || this.type == "M") {
+      for (let i = 0; i < 2; i++) {
+        this.iPuQuOnPush();
+        this.qa_A_id++;
+        this.qQQ = true;
+        this.input_cloose = true;
+      }
+    }
 
-    this.qa_A_id++;
-    console.log(this.input_Questionnaire_only);
-    this.qQQ = true;
-    this.input_cloose = true;
+    if(this.type == "T"){
+      this.qQQ = true;
+      this.input_cloose = true;
+    }
+    // this.iPuQuOnPush();
+    console.log(this.quest);
   }
 
   addQA() {
@@ -85,9 +96,8 @@ export class Mokuhyo4Component {
   //加問題格數方法
   iPuQuOnPush() {
     this.quest.push({
-      QeCode: this.qa_A_id,
-      type: this.question_type,
-      valueName: '',
+      optionNumber: this.qa_A_id,
+      option: '',
     });
   }
 
@@ -95,7 +105,7 @@ export class Mokuhyo4Component {
   //刪除選項
   deleteQA(index: number) {
     // console.log(index);
-    // console.log(this.input_Questionnaire_only[this.idQA].quest);
+    // console.log(this.input_Questionnaire_only[this.ques_id].quest);
 
     this.quest.splice(index, 1);
   }
@@ -105,22 +115,22 @@ export class Mokuhyo4Component {
   addNewList() {
     let type!: string;
 
-    if (this.question_type == 'T') {
+    if (this.type == 'T') {
       type = '文字描述';
-    } else if (this.question_type == 'M') {
+    } else if (this.type == 'M') {
       type = '複選題';
-    } else if (this.question_type == 'Q') {
+    } else if (this.type == 'Q') {
       type = '單選題';
     };
 
-    this.idQA++;
+    this.ques_id++;
     console.log(this.input_Questionnaire_Array);
     // console.log(this.qData);
     this.input_Questionnaire_Array.push({
-      id: this.idQA,
-      name: this.questionnaireName,
+      ques_id: this.ques_id,
+      name: this.ques_name,
       type: type,
-      must: this.must,
+      required: this.required,
       edit: '',
       quest: this.quest
     })
@@ -144,17 +154,17 @@ export class Mokuhyo4Component {
     this.input_cloose = false;
     this.qQQ = true;
 
-    this.questionnaireName = element.name;
+    this.ques_name = element.name;
 
     if (element.type == '文字描述') {
-      this.question_type = 'T';
+      this.type = 'T';
     } else if (element.type == '複選題') {
-      this.question_type = 'M';
+      this.type = 'M';
     } else if (element.type == '單選題') {
-      this.question_type = 'Q';
+      this.type = 'Q';
     };
 
-    this.must = element.must;
+    this.required = element.required;
     for (let quest of element.quest) {
       this.quest.push(quest);
     };
@@ -163,7 +173,7 @@ export class Mokuhyo4Component {
 
 
   //列表
-  displayedColumns: string[] = ['select', 'name', 'type', 'must', 'edit'];
+  displayedColumns: string[] = ['select', 'name', 'type', 'required', 'edit'];
   dataSource = new MatTableDataSource<addNewQuestionnaireForm>(this.input_Questionnaire_Array);
   selection = new SelectionModel<addNewQuestionnaireForm>(true, []);
 
@@ -196,7 +206,7 @@ export class Mokuhyo4Component {
       alert('請新增問卷問題');
       return;
     } else {
-      this.initialdataService.qaNewnaiyodata = this.input_Questionnaire_Array;
+      this.initialdataService.ques = this.input_Questionnaire_Array;
       this.router.navigate(['/moguhyo1/mokuhyo5']);
     }
 
@@ -208,7 +218,7 @@ export class Mokuhyo4Component {
 export interface addNewQuestionnaireForm {
   name: string;
   type: string;
-  must: boolean;
+  required: boolean;
   edit: string;
 }
 

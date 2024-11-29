@@ -1,6 +1,6 @@
-<h1>{{qaNewdata.qaNamedata}}</h1>
+<h1>{{quiz.name}}</h1>
 <div class="siyousya">
-  <p>{{qaNewdata.qaContentdata}}</p>
+  <p>{{quiz.description}}</p>
   <br>
   <div id="auth-form" class="form active">
     <label>名字:</label>
@@ -34,7 +34,7 @@
             @for (option of quest.quest; track $index) {
                 <div>
                     <input type="checkbox" [(ngModel)]="option.boxBoolean">
-                    {{ option.valueName }}
+                    {{ option.option }}
                 </div>
             }
             <br>
@@ -42,9 +42,9 @@
 
         @if (quest.type == '單選題') {
             @for (option of quest.quest; track $index) {
-                <input type="radio" name="{{quest.id}}" value="{{option.QeCode}}"
+                <input type="radio" name="{{quest.id}}" value="{{option.optionNumber}}"
                        [(ngModel)]="quest.radioAnswer">
-                    {{ option.valueName }}
+                    {{ option.option }}
                 <br>
 
             }
@@ -62,6 +62,6 @@
 <div class="botam">
   <button mat-flat-button >取消</button>
   <button mat-flat-button (click)="goMokuhyo4()">上一步</button>
-  <button mat-flat-button>儲存</button>
+  <button mat-flat-button (click)="storeService()">儲存</button>
   <button mat-flat-button (click)="goMokuhyo7()">儲存並發布</button>
 </div>

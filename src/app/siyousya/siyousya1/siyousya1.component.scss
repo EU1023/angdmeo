@@ -62,3 +62,22 @@ th {
   pointer-events: none;
   cursor: default;
 }
+::ng-deep.mat-mdc-header-row{
+  background-color: #8a3809 !important;
+
+
+}
+.container[_ngcontent-ng-c1070359278]{
+  background:rgb(245, 116, 31) !important;
+}
+.container tr:hover
+{
+  background:rgb(255, 230, 10) !important;
+}
+
+th[_ngcontent-ng-c1070359278], td[_ngcontent-ng-c1070359278]{
+  border: 1px solid #000000 !important;
+}
+.mat-mdc-paginator{
+  background-color: #11aa2a !important;
+}

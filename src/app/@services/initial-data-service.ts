@@ -5,18 +5,21 @@ import { Injectable } from "@angular/core";
 
 
 export class initialDataService{
-  qaNewdata!:any;
-  qaNewnaiyodata!:any;
+  //建立問卷(名稱、說明、開始時間、結束時間)
+  quiz!:any;
+  //建立問卷問題
+  ques!:any;
   Newdata: Array<any>=[];
 
   qaNew(){
     this.Newdata.push(
       {
-      title: this.qaNewdata.qaNamedata,
-      ex: this.qaNewdata.qaContentdata,
-      sData:this.qaNewdata.startTime,
-      eData:this.qaNewdata.endTime,
-      options:this.qaNewnaiyodata,
+      name: this.quiz.name,
+      description: this.quiz.description,
+      start_date:this.quiz.start_date,
+      end_date:this.quiz.end_date,
+      published:true,
+      options:this.ques,
       }
     );
 

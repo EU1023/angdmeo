@@ -1,3 +1,4 @@
+import { StatusCode } from './../../component1/component1.component';
 import { QuestService } from './../../@services/quest.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -6,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { initialDataService } from '../../@services/initial-data-service';
-
+import { HttpClientService } from '../../http-service/http-client.service';
 @Component({
   selector: 'app-mokuhyo5',
   standalone: true,
@@ -28,20 +29,24 @@ export class Mokuhyo5Component {
   userEmail!: string;
   userAge!: string;
 
-  initialData!:any;
-  qaNewdata!:any;
+  quiz!: any;
+  ques!: any;
+  initialData!: any;
   constructor(
+    private http: HttpClientService,
     private initialdataService: initialDataService,
     private questService: QuestService,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.qaNewdata=this.initialdataService.qaNewdata;
+    this.quiz = this.initialdataService.quiz;
+    this.ques = this.initialdataService.ques;
     this.initialdataService.qaNew();
-    this.initialData = this.initialdataService.qaNewnaiyodata;
+    this.initialData = this.initialdataService.ques;
 
-    console.log(this.initialData);
+    console.log(this.ques);
+    console.log(this.ques.length);
     //?
     if (!this.questService.questData) {
       this.tidyQuestArray();
@@ -109,7 +114,7 @@ export class Mokuhyo5Component {
     }
   }
 
-  goMokuhyo4(){
+  goMokuhyo4() {
     this.router.navigate(['/moguhyo1/mokuhyo4']);
   }
 
@@ -170,5 +175,41 @@ export class Mokuhyo5Component {
       }
     }
     return true;
+  }
+
+
+
+  storeService() {
+    let quesList: {}[] = [];
+    console.log('for前');
+    for (let i = 0; this.ques.length; i++) {
+      let res = {
+        quiz_id:0,
+        ques_id: this.ques.ques_id,
+        ques_name: this.ques.name,
+        type: this.ques.type,
+        required: this.ques.required,
+        options: JSON.stringify(this.ques.quest)
+
+      }
+      quesList = [...quesList, res];
+    };
+
+    console.log('routerData前');
+    let routerData = {
+      id:0,
+      name: this.quiz.name,
+      description: this.quiz.description,
+      start_date: this.quiz.start_date,
+      end_date: this.quiz.end_date,
+      published: this.quiz.published,
+      ques_list: quesList,
+    }
+    console.log('postapi前');
+    this.http.postApi('http://localhost:8080/quiz/create', routerData).subscribe((res: any) => {
+      if (res.StatusCode != 200) {
+        alert(res.StatusCode+' '+ res.massege);
+      }
+    })
   }
 }

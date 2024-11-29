@@ -15,8 +15,9 @@
 }
 
 .home {
-  padding: 8px;
+  padding: px;
   position: absolute;
+  left: 0%;
   top: 5%;
 }
 
@@ -35,8 +36,11 @@
 
   width: 100%;
   height: 6%;
-  background-color: #ffffff;
+  background-color: #000000;
   overflow: hidden;
+  .example-spacer {
+    flex: 1 1 auto;
+  }
 }
 
 .menudiv {
@@ -88,7 +92,7 @@
   font-size: 40px;
   width: 50px;
   height: 50px;
-  color: black;
+  color: rgb(255, 255, 255);
 
 }
 
@@ -104,10 +108,10 @@ nav label {
 
 
 
-.group:hover::before {
+.example-spacer:hover::before {
   z-index: 10;
   position: fixed;
-  top: 6%;
+  top: 7%;
   right: 10px;
   height: 5%;
   width: 10%;

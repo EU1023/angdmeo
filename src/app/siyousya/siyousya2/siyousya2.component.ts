@@ -108,7 +108,7 @@ export class Siyousya2Component {
         userAge: this.userAge,
         questArray: this.newQuestArray,
       }
-      this.router.navigate(['/moguhyo1/siyousya3']);
+      this.router.navigate(['/siyousyaui/siyousya3']);
     };
   }
   //判斷題型和輸入狀況

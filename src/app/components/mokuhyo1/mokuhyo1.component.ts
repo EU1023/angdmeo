@@ -6,7 +6,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { Managedata } from '../../@services/managedata';
-import { flatMap } from 'rxjs';
 @Component({
   selector: 'app-mokuhyo1',
   standalone: true,
