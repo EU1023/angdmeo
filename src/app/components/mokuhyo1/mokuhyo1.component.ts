@@ -11,7 +11,6 @@ import { Managedata } from '../../@services/managedata';
   standalone: true,
   imports: [RouterOutlet,
             RouterLink,
-            RouterLinkActive,
             MatIconModule,
             MatSidenavModule,
             MatButtonModule,

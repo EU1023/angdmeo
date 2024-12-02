@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientService } from '../../http-service/http-client.service';
 @Component({
   selector: 'app-siyousya2',
   standalone: true,
@@ -28,6 +29,7 @@ export class Siyousya2Component {
   userAge!: string;
 
   constructor(
+    private http: HttpClientService,
     private questService: QuestService,
     private router: Router,
   ) { }

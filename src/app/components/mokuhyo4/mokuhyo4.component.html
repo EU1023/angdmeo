@@ -8,9 +8,9 @@
   <mat-form-field name="question_type" id="question_type">
     <mat-label>選擇題型</mat-label>
     <mat-select [(ngModel)]="type">
-      <mat-option value="Q">單選題</mat-option>
-      <mat-option value="M">複選題</mat-option>
-      <mat-option value="T">文字描述</mat-option>
+      <mat-option value="single">單選題(single)</mat-option>
+      <mat-option value="multi">複選題(multi)</mat-option>
+      <mat-option value="text">文字描述(text)</mat-option>
     </mat-select>
   </mat-form-field>
   <section class="example-section">
@@ -22,17 +22,17 @@
 
 <nav class="right">
   <div class="rightDiv">
-    @if (qQQ && type != "T") {
-    <button [ngClass]="{'topcoolse': (type =='T')||(qa_A_id == 20)}"
+    @if (qQQ && type != "text") {
+    <button [ngClass]="{'topcoolse': (type =='text')||(qa_A_id == 20)}"
       (click)="addQA()"><mat-icon>add</mat-icon></button>
     <br>
     @for (Qroduce of quest; track $index) {
     <button (click)="deleteQA($index)"><mat-icon>close</mat-icon></button>
-    @if (type == 'Q') {
+    @if (type == 'single') {
     <input type="text" [(ngModel)]="Qroduce.option">
     <br>
     }
-    @if (type == 'M') {
+    @if (type == 'multi') {
     <input type="text" [(ngModel)]="Qroduce.option">
     <br>
     }
@@ -71,9 +71,9 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="ques_name">
       <th mat-header-cell *matHeaderCellDef>名稱</th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.ques_name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="type">

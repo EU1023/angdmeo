@@ -53,6 +53,13 @@ export class Mokuhyo4Component {
   qa_A_id = 1;
 
   qQQ: boolean = false;
+
+  ngOnInit(){
+    this.dataSource.data = this.initialdataService.ques;
+  };
+
+
+
   //Q單選 M複選 T文字
   generateQuestionsQuestionnaire() {
     if (this.ques_name == null || this.type == null) {
@@ -68,7 +75,7 @@ export class Mokuhyo4Component {
       });
     }
 
-    if (this.type == "Q" || this.type == "M") {
+    if (this.type == "single" || this.type == "multi") {
       for (let i = 0; i < 2; i++) {
         this.iPuQuOnPush();
         this.qa_A_id++;
@@ -77,7 +84,7 @@ export class Mokuhyo4Component {
       }
     }
 
-    if(this.type == "T"){
+    if (this.type == "text") {
       this.qQQ = true;
       this.input_cloose = true;
     }
@@ -115,20 +122,20 @@ export class Mokuhyo4Component {
   addNewList() {
     let type!: string;
 
-    if (this.type == 'T') {
-      type = '文字描述';
-    } else if (this.type == 'M') {
-      type = '複選題';
-    } else if (this.type == 'Q') {
-      type = '單選題';
+    if (this.type == 'text') {
+      type = 'text';
+    } else if (this.type == 'multi') {
+      type = 'multi';
+    } else if (this.type == 'single') {
+      type = 'single';
     };
 
     this.ques_id++;
-    console.log(this.input_Questionnaire_Array);
+    // console.log(this.input_Questionnaire_Array);
     // console.log(this.qData);
     this.input_Questionnaire_Array.push({
       ques_id: this.ques_id,
-      name: this.ques_name,
+      ques_name: this.ques_name,
       type: type,
       required: this.required,
       edit: '',
@@ -142,7 +149,7 @@ export class Mokuhyo4Component {
     this.input_cloose = false;
     this.qQQ = false;
 
-    // console.log(this.input_Questionnaire_Array);
+    console.log(this.input_Questionnaire_Array);
     //放入inputQarray的值進清單
     this.dataSource.data = this.input_Questionnaire_Array;
 
@@ -156,12 +163,12 @@ export class Mokuhyo4Component {
 
     this.ques_name = element.name;
 
-    if (element.type == '文字描述') {
-      this.type = 'T';
-    } else if (element.type == '複選題') {
-      this.type = 'M';
-    } else if (element.type == '單選題') {
-      this.type = 'Q';
+    if (element.type == 'text') {
+      this.type = 'text';
+    } else if (element.type == 'multi') {
+      this.type = 'multi';
+    } else if (element.type == 'single') {
+      this.type = 'single';
     };
 
     this.required = element.required;
@@ -173,14 +180,14 @@ export class Mokuhyo4Component {
 
 
   //列表
-  displayedColumns: string[] = ['select', 'name', 'type', 'required', 'edit'];
+  displayedColumns: string[] = ['select', 'ques_name', 'type', 'required', 'edit'];
   dataSource = new MatTableDataSource<addNewQuestionnaireForm>(this.input_Questionnaire_Array);
   selection = new SelectionModel<addNewQuestionnaireForm>(true, []);
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    return numSelected == numRows;
   }
 
   masterToggle() {
@@ -201,22 +208,25 @@ export class Mokuhyo4Component {
     this.router.navigate(['/moguhyo1/mokuhyo3']);
   }
   goMokuhyo5() {
+
     //判斷空問卷
-    if (!this.dataSource) {
+    if (this.dataSource.data.length==0) {
       alert('請新增問卷問題');
       return;
     } else {
-      this.initialdataService.ques = this.input_Questionnaire_Array;
+      if(this.input_Questionnaire_Array.length!=0){
+        this.initialdataService.ques = this.input_Questionnaire_Array;
+      }
+      this.dataSource.data = [];
+      this.input_Questionnaire_Array = [];
       this.router.navigate(['/moguhyo1/mokuhyo5']);
     }
 
   }
-
-
 }
 
 export interface addNewQuestionnaireForm {
-  name: string;
+  ques_name: string;
   type: string;
   required: boolean;
   edit: string;

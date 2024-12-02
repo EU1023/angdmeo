@@ -9,6 +9,7 @@ import { MatTableDataSource,MatTableModule } from '@angular/material/table';
 import { HttpClientService } from './http-service/http-client.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule} from '@angular/material/icon';
+import { SiyousyaUiComponent } from "./siyousya/siyousya-ui/siyousya-ui.component";
 
 
 @Component({
@@ -16,7 +17,9 @@ import { MatIconModule} from '@angular/material/icon';
   standalone: true,
   imports: [
     RouterOutlet, MatIconModule, MatPaginatorModule, MatTableModule,
-    FormsModule, ReactiveFormsModule], //組件位置
+    FormsModule, ReactiveFormsModule,
+    SiyousyaUiComponent
+], //組件位置
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

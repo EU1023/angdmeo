@@ -20,18 +20,18 @@
 <br>
 <div class="forsitumon">
   <ol>
-    @for (quest of newQuestArray; track $index) {
+    @for (ques of newQuestArray; track $index) {
         <li>
             <h5>
-                {{ quest.name }}
-                @if (quest.must) {
+                {{ ques.ques_name }}
+                @if (ques.required) {
                     <span style="color: red;">*</span>
                 }
             </h5>
         </li>
         <!-- 多選M 單選Q 文字輸入T -->
-        @if (quest.type == '複選題') {
-            @for (option of quest.quest; track $index) {
+        @if (ques.type == 'multi') {
+            @for (option of ques.quest; track $index) {
                 <div>
                     <input type="checkbox" [(ngModel)]="option.boxBoolean">
                     {{ option.option }}
@@ -40,10 +40,10 @@
             <br>
         }
 
-        @if (quest.type == '單選題') {
-            @for (option of quest.quest; track $index) {
-                <input type="radio" name="{{quest.id}}" value="{{option.optionNumber}}"
-                       [(ngModel)]="quest.radioAnswer">
+        @if (ques.type == 'single') {
+            @for (option of ques.quest; track $index) {
+                <input type="radio" name="{{ques.id}}" value="{{option.optionNumber}}"
+                       [(ngModel)]="ques.radioAnswer">
                     {{ option.option }}
                 <br>
 
@@ -51,8 +51,8 @@
             <br>
         }
 
-        @if (quest.type == '文字描述') {
-            <textarea style="height: 150px; width: 60%;" [(ngModel)]="quest.answer"></textarea>
+        @if (ques.type == 'text') {
+            <textarea style="height: 150px; width: 60%;" [(ngModel)]="ques.answer"></textarea>
             <br>
         }
     }

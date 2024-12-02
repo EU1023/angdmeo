@@ -1,14 +1,14 @@
 import { initialDataService } from './../../@services/initial-data-service';
 
 import { Component } from '@angular/core';
-import { MatInputModule} from '@angular/material/input';
-import { MatFormFieldModule} from '@angular/material/form-field';
-import { FormsModule} from '@angular/forms';
-import { provideNativeDateAdapter} from '@angular/material/core';
-import { MatDatepickerModule} from '@angular/material/datepicker';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/router';
 @Component({
   selector: 'app-mokuhyo3',
@@ -23,8 +23,8 @@ import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/ro
 })
 export class Mokuhyo3Component {
   constructor(private router: Router,
-              private initialdataservice: initialDataService,
-  ){}
+    private initialdataservice: initialDataService,
+  ) { }
 
   questionnaireName !: string;
   questionnaireContent !: string;
@@ -41,18 +41,34 @@ export class Mokuhyo3Component {
   private readonly _currentYear2 = new Date().getFullYear();
   readonly minDate2 = new Date(this.fdata);
 
-  goMokuhyo4(){
-    if(this.questionnaireName==null||this.questionnaireContent==null||this.edata == null){
+  goMokuhyo4() {
+    if (this.questionnaireName == null || this.questionnaireContent == null || this.edata == null) {
       alert('請輸入內容');
       return;
-    }else{
+    } else {
+      let fdatamonth = this.fdata.getMonth()+1; //月
+      let fdatadate = this.fdata.getDate(); //日
+      let edatamonth = this.edata.getMonth()+1; //月
+      let edatadate = this.edata.getDate(); //日
+      if (String(fdatamonth).length == 1) {
+        fdatamonth = '0' + fdatamonth;
+      }
+      if (String(fdatadate).length == 1) {
+        fdatadate = '0' + fdatadate;
+      }
+      if (String(edatamonth).length == 1) {
+        edatamonth = '0' + edatamonth;
+      }
+      if (String(edatadate).length == 1) {
+        edatadate = '0' + edatadate;
+      }edatadate
       this.initialdataservice.quiz = {
 
         name: this.questionnaireName,
         description: this.questionnaireContent,
-        start_date:(this.fdata.getFullYear() + '/' + (this.fdata.getMonth() + 1) + '/' + this.fdata.getDate()),
-        end_date:(this.edata.getFullYear()+'/'+(this.edata.getMonth()+1) +'/' + this.edata.getDate()),
-        published:true,
+        start_date: (this.fdata.getFullYear() + '-' + fdatamonth + '-' + fdatadate),
+        end_date: (this.edata.getFullYear() + '-' + edatamonth + '-' + edatadate),
+        published: true,
       };
       this.router.navigate(['/moguhyo1/mokuhyo4'])
     }

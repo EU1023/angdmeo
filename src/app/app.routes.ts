@@ -21,8 +21,8 @@ import { Chart } from 'chart.js/auto';
 export const routes: Routes = [
   // { path: '', redirectTo:'/siyousyaui/siyousya1' , pathMatch: 'full'},
   { path: 'moguhyo1', component: Mokuhyo1Component, children:[
-    { path: '', redirectTo: '/moguhyo1/mokuhyo4', pathMatch: 'full'},
-    // { path: '', redirectTo: '/moguhyo1/siyousya1', pathMatch: 'full'},
+    // { path: '', redirectTo: '/moguhyo1/mokuhyo3', pathMatch: 'full'},
+    { path: '', redirectTo: '/moguhyo1/siyousya1', pathMatch: 'full'},
     { path: 'touroku', component: TourokuComponent },
     { path: 'mokuhyo2', component: Mokuhyo2Component },
     { path: 'mokuhyo3', component: Mokuhyo3Component },
@@ -43,15 +43,7 @@ export const routes: Routes = [
     { path: 'siyousya4', component: Siyousya4Component },
   ]},
 
-  { path: 'first', component: FirstComponent},
-  { path: 'second', component: SecondComponent},
-  { path: 'practice', component: PracticeComponent},
-  { path: 'Practice', component: PracticeComponent, children:[{
-    path: 'goHome', component: AppComponent}
-  ]},
-  { path: 'home', component: AppComponent, children:[{
-    path: 'first', component: FirstComponent}
-  ]}
+
   //{ path: '', redirectTo: '/',pathMatch: 'full'},
   // path: ''的''是指第一段輸入的內容 full指的是必須完全一樣
 ];

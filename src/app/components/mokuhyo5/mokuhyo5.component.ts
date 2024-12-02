@@ -21,6 +21,7 @@ import { HttpClientService } from '../../http-service/http-client.service';
 })
 export class Mokuhyo5Component {
 
+
   newQuestArray: Array<any> = [];
   radioData!: string;
   ngclassBoolean = false;
@@ -44,8 +45,8 @@ export class Mokuhyo5Component {
     this.ques = this.initialdataService.ques;
     this.initialdataService.qaNew();
     this.initialData = this.initialdataService.ques;
-
-    console.log(this.ques);
+    console.log(this.initialdataService.quiz);
+    console.log(this.initialdataService.ques);
     console.log(this.ques.length);
     //?
     if (!this.questService.questData) {
@@ -182,19 +183,19 @@ export class Mokuhyo5Component {
   storeService() {
     let quesList: {}[] = [];
     console.log('for前');
-    for (let i = 0; this.ques.length; i++) {
+    for (let i = 0; i<this.ques.length; i++) {
       let res = {
         quiz_id:0,
-        ques_id: this.ques.ques_id,
-        ques_name: this.ques.name,
-        type: this.ques.type,
-        required: this.ques.required,
-        options: JSON.stringify(this.ques.quest)
-
+        quesId: this.ques[i].ques_id,
+        quesName: this.ques[i].ques_name,
+        type: this.ques[i].type,
+        required: this.ques[i].required,
+        options: JSON.stringify(this.ques[i].quest)
       }
       quesList = [...quesList, res];
     };
 
+    console.log(quesList);
     console.log('routerData前');
     let routerData = {
       id:0,
@@ -205,11 +206,15 @@ export class Mokuhyo5Component {
       published: this.quiz.published,
       ques_list: quesList,
     }
+    console.log(routerData);
     console.log('postapi前');
     this.http.postApi('http://localhost:8080/quiz/create', routerData).subscribe((res: any) => {
+      console.log(res);
       if (res.StatusCode != 200) {
-        alert(res.StatusCode+' '+ res.massege);
+        alert(res.code+' '+ res.message);
+        return
       }
+      alert('回傳成功，請做確認');
     })
   }
 }
