@@ -34,8 +34,8 @@ export class AppComponent {
 
   ngOnInit(){
     this.manage=this.manageData.manage;
-    if (this.manage) this.router.navigate(['/moguhyo1']);
-    if (!this.manage) this.router.navigate(['/siyousyaui']);
+    // if (this.manage) this.router.navigate(['/moguhyo1']);
+    // if (!this.manage) this.router.navigate(['/siyousyaui']);
   }
 
   ngDoCheck(): void {

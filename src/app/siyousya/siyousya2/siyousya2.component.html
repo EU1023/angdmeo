@@ -1,6 +1,6 @@
-<h1>{{quData.title}}</h1>
+<h1>{{quizData.quizName}}</h1>
 <div class="siyousya">
-  <p>{{quData.ex}}</p>
+  <p>{{quizData.quizDes}}</p>
   <br>
   <form [formGroup]="form" class="container">
     <div id="auth-form" class="form active">
@@ -25,36 +25,36 @@
     @for (quest of newQuestArray; track $index) {
         <li>
             <h5>
-                {{ quest.quName }}
-                @if (quest.need) {
+                {{ quest.quesName }}
+                @if (quest.required) {
                     <span style="color: red;">*</span>
                 }
             </h5>
         </li>
-        <!-- 多選M 單選Q 文字輸入T -->
-        @if (quest.type == 'M') {
+
+        @if (quest.type == 'multi') {
             @for (option of quest.options; track $index) {
                 <div>
                     <input type="checkbox" [(ngModel)]="option.boxBoolean">
-                    {{ option.optionName }}
+                    {{ option.option }}
                 </div>
                 <br>
             }
             <br>
         }
 
-        @if (quest.type == 'Q') {
+        @if (quest.type == 'single') {
             @for (option of quest.options; track $index) {
-                <input type="radio" name="{{quest.questId}}" value="{{option.code}}"
+                <input type="radio" name="{{quest.questId}}" value="{{option.optionNumber}}"
                        [(ngModel)]="quest.radioAnswer">
-                    {{ option.optionName }}
+                    {{ option.option }}
                 <br>
 
             }
             <br>
         }
 
-        @if (quest.type == 'T') {
+        @if (quest.type == 'text') {
             <textarea style="height: 150px; width: 60%;" [(ngModel)]="quest.answer"></textarea>
             <br>
         }

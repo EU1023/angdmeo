@@ -21,7 +21,6 @@ import { HttpClientService } from '../../http-service/http-client.service';
 })
 export class Mokuhyo5Component {
 
-
   newQuestArray: Array<any> = [];
   radioData!: string;
   ngclassBoolean = false;
@@ -119,27 +118,6 @@ export class Mokuhyo5Component {
     this.router.navigate(['/moguhyo1/mokuhyo4']);
   }
 
-
-
-
-  //資料傳送伺服器 暫存
-  goMokuhyo7() {
-    // if (this.checkNeed()) {
-    //   this.questService.questData = {
-    //     title: this.quData.title,
-    //     sDate: this.quData.sData,
-    //     eDate: this.quData.eData,
-    //     ex: this.quData.ex,
-    //     userName: this.userName,
-    //     userPhone: this.userPhone,
-    //     userEmail: this.userEmail,
-    //     userAge: this.userAge,
-    //     questArray: this.newQuestArray,
-    //   }
-
-    // };
-    this.router.navigate(['/moguhyo1']);
-  }
   //判斷題型和輸入狀況
   checkNeed(): boolean {
     if (this.userName || !this.userPhone) {
@@ -178,8 +156,6 @@ export class Mokuhyo5Component {
     return true;
   }
 
-
-
   storeService() {
     let quesList: {}[] = [];
     console.log('for前');
@@ -216,5 +192,6 @@ export class Mokuhyo5Component {
       }
       alert('回傳成功，請做確認');
     })
+    this.router.navigate(['/moguhyo1']);
   }
 }

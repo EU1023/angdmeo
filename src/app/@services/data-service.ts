@@ -5,24 +5,23 @@ import { Injectable } from "@angular/core";
 })
 
 export class DataService{
-  changeDateFormat(dateData: Date, dateTyep: string){
+
+  changeDateFormat(nowdate:Date){
+    let nowDate = nowdate;
     let year; //年
     let month; //月
     let date; //日
-    if (dateData) {
-      year = dateData.getFullYear();
-      month = dateData.getMonth() + 1;
+    if (nowDate) {
+      year = nowDate.getFullYear();
+      month = nowDate.getMonth() + 1;
       if(String(month).length == 1){
         month = '0' + month;
       }
-      date = dateData.getDate();
+      date = nowDate.getDate();
       if (String(date).length == 1){
         date = '0' + date;
       }
-      return year + dateTyep + month + dateTyep +date;
+      return year + '/' + month + '/' +date;
     } else{ return '';}
-  }
-  timeFormatChange(){
-
   }
 }

@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
 import { AppComponent } from './app.component';
 import { Chart } from 'chart.js/auto';
 export const routes: Routes = [
-  // { path: '', redirectTo:'/siyousyaui/siyousya1' , pathMatch: 'full'},
+  { path: '', redirectTo:'/siyousyaui/siyousya1' , pathMatch: 'full'},
   { path: 'moguhyo1', component: Mokuhyo1Component, children:[
     // { path: '', redirectTo: '/moguhyo1/mokuhyo3', pathMatch: 'full'},
     { path: '', redirectTo: '/moguhyo1/siyousya1', pathMatch: 'full'},

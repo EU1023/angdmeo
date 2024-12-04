@@ -13,9 +13,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { SelectionModel } from '@angular/cdk/collections';
 import { NgClass } from '@angular/common';
-
+import { HttpClientService } from '../../http-service/http-client.service';
+import { QuestService } from '../../@services/quest.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-siyousya1',
   standalone: true,
@@ -36,25 +37,35 @@ import { NgClass } from '@angular/common';
 })
 export class Siyousya1Component {
   constructor(
-    private faekData: FaekData,
-    private DataService: DataService,
+    private http: HttpClientService,
+    private quesSiyousya2: QuestService,
+    private dataService: DataService,
+    private router: Router
   ) { }
   //時間選擇器的變數
   fdata!: any;
   edata!: any;
+
+
+
+
+
   //列表用
-  displayedColumns: string[] = ['id', 'name', 'state', 'start_time', 'end_time', 'GoTo'];
+  displayedColumns: string[] = ['id', 'name', 'status', 'start_date', 'end_date', 'GoTo'];
   dataSource = new MatTableDataSource<PeriodicElement>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+  //當前時間(年月日)
+  date!: any;
 
   ngOnInit() {
-    this.dataSource.data = this.faekData.getArray();
+    this.date = this.dataService.changeDateFormat(new Date());
+
+    this.quizStartdate();
 
   }
-
   //時間選擇器
   //開始時間的限制
   private readonly _currentYear1 = new Date().getFullYear();
@@ -63,6 +74,63 @@ export class Siyousya1Component {
   private readonly _currentYear2 = new Date().getFullYear();
   readonly minDate2 = new Date(this.fdata);
 
+  siyosya2(id: number, name:string, description:string) {
+    this.quesSiyousya2.questId = id;
+    this.quesSiyousya2.questData=({
+      quizName:name,
+      quizDes:description,
+    });
+    this.router.navigate(['/siyousyaui/siyousya2']);
+
+  }
+
+
+
+
+
+
+  //依時間賦予狀態
+  getStatus(item: PeriodicElement) {
+    const nowDate = this.date;
+    const startDate = this.dataService.changeDateFormat(new Date(item.start_date));
+    const endDate = this.dataService.changeDateFormat(new Date(item.end_date));
+    const published = new Boolean(item.published);
+    if (published == false) {
+      return '未發布';
+    }
+    if (published == true) {
+      if (nowDate < startDate) {
+        return '尚未開始';
+      }
+      if (nowDate > endDate) {
+        return '已結束';
+      }
+      if (nowDate >= startDate && this.date <= endDate) {
+        return '進行中';
+      }
+    }
+    return '';
+  }
+
+  //儲存問卷名稱 說明內容陣列
+  quizNameDescription: any;
+
+  quizStartdate() {
+    this.http.getApi('http://localhost:8080/quiz/getquiz').subscribe(
+      (res: any) => {
+        console.log(res);
+        // if (res.StatusCode != 200) {
+        //   alert(res.code+' '+ res.message);
+        //   return
+        // }
+        // this.dataSource.data = res;
+        // console.log(Array.isArray(res));
+        this.dataSource.data = res.map((item: PeriodicElement) => {
+          item.status = this.getStatus(item);
+          return item;
+        });
+      });
+  }
 
   //搜尋問卷名稱欄
   Questionnaire_n !: string;
@@ -91,14 +159,14 @@ export class Siyousya1Component {
           tidyData.push(array);
         }
       }
-    }else if(!this.fdata){
+    } else if (!this.fdata) {
       //結束時間
-      for (let array of this.dS){
-        if (array.end_time.indexOf(this.edata)!=-1){
+      for (let array of this.dS) {
+        if (array.end_time.indexOf(this.edata) != -1) {
           tidyData.push(array);
         }
       }
-    }else {
+    } else {
       //名稱
       for (let array of this.dS) {
         if (array.name.indexOf(this.Questionnaire_n) != -1) {
@@ -110,12 +178,26 @@ export class Siyousya1Component {
   };
 }
 
+
+
+export interface quiz_list {
+  id: number;
+  name: String;
+  description: String;
+  start_date: Date;
+  end_date: Date;
+  published: boolean;
+}
+
+
 //列表用
 export interface PeriodicElement {
   id: number;
   name: string;
-  state: string;
-  start_time: string;
-  end_time: string;
+  description: String;
+  status?: String;
+  start_date: string;
+  end_date: string;
+  published: boolean;
   GoTo: string;
 }

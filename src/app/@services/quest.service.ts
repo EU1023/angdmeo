@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 
 export class QuestService {
-    questData!: any;
+  questId!: number;
+  questData!: any;
 }
