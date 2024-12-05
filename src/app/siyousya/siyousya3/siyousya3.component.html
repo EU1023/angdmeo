@@ -1,8 +1,8 @@
-@if (quData.title=='') {
+@if (quData.quizName=='') {
   <h1>無</h1>
 }
-@else{<h1>{{quData.title}}</h1>}
-<p>{{quData.ex}}</p>
+@else{<h1>{{quData.quizName}}</h1>}
+<p>{{quData.quizDes}}</p>
 <div>
   <label>名稱</label><span>{{quData.userName}}</span>
 </div>
@@ -21,33 +21,33 @@
 
 <div>
   <ol>
-    @for (quest of quData.questArray; track $index) {
+    @for (quest of quesData; track $index) {
       <li>
         <h5>
-          {{ quest.questName }}
-          @if (quest.need) {
+          {{ quest.quesName }}
+          @if (quest.required) {
             <span style="color: red;">*</span>
           }
         </h5>
       </li>
-      @if (quest.type == 'M') {
+      @if (quest.type == 'multi') {
         <ol>
           @for (option of quest.options; track $index) {
             @if (option.boxBoolean){
               <li>
                 <div>
-                  <span>{{ option.optionName }}</span>
+                  <span>{{ option.option }}</span>
                 </div><br>
               </li>
             }
           }
         </ol>
       }
-      @if( quest.type == 'Q' ){
+      @if( quest.type == 'single' ){
         @if ( quest.radioAnswer ) {
           @for (option of quest.options; track $index) {
-            @if (quest.radioAnswer == option.code) {
-              <span> {{ option.optionName }} </span>
+            @if (quest.radioAnswer == option.optionNumber) {
+              <span> {{ option.option }} </span>
               <br>
             }
           }
@@ -55,7 +55,7 @@
           <span>無</span>
         }
       }
-      @if ( quest.type == 'T') {
+      @if ( quest.type == 'text') {
         <h3>{{quest.answer}}</h3>
       }
     }

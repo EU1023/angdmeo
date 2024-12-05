@@ -62,8 +62,8 @@ export class Component1Component {
   ){}
   //資料傳遞
   ngOnInit(): void {
-    console.log(this.exampleService.userName)
-    this.exampleService.userName=this.userName;
+    // console.log(this.exampleService.userName)
+    // this.exampleService.userName=this.userName;
 
     // this.changeUserName.emit('55688');
 

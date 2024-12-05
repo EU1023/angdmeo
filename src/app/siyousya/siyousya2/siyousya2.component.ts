@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientService } from '../../http-service/http-client.service';
-
+import { ExampleService } from '../../@services/example-service';
 @Component({
   selector: 'app-siyousya2',
   standalone: true,
@@ -34,9 +34,10 @@ export class Siyousya2Component {
 
   //標題 內容說明
   quizData: any;
-
+  quizId:any;
 
   constructor(
+    private quDataExampleService : ExampleService,
     private http: HttpClientService,
     private questService: QuestService,
     private router: Router,
@@ -44,13 +45,9 @@ export class Siyousya2Component {
 
   ngOnInit(): void {
     // 取得問卷清單key
-    let quizId = this.questService.questId;
+    this.quizId = this.questService.questId;
     this.quizData = this.questService.questData;
-
-    console.log(quizId);
-    console.log(this.quizData);
-
-    this.quizStartdate(quizId);
+    this.quizStartdate(this.quizId);
 
   }
 
@@ -107,20 +104,20 @@ export class Siyousya2Component {
     }
   }
 
-  //資料傳送伺服器 暫存
+  //資料傳送至預覽頁 暫存
   goSiyousya3() {
     if (this.checkNeed()) {
-      // this.questService.questData = {
-      //   title: this.quData.title,
-      //   sDate: this.quData.sData,
-      //   eDate: this.quData.eData,
-      //   ex: this.quData.ex,
-      //   userName: this.userName,
-      //   userPhone: this.userPhone,
-      //   userEmail: this.userEmail,
-      //   userAge: this.userAge,
-      //   questArray: this.newQuestArray,
-      // }
+      this.quDataExampleService.quData = {
+        quizId:this.quizId,
+        quizName: this.quizData.quizName, //title
+        quizDes: this.quizData.quizDes, //ex
+        userName: this.userName,
+        userPhone: this.userPhone,
+        userEmail: this.userEmail,
+        userAge: this.userAge,
+      };
+      this.quDataExampleService.quesData = this.newQuestArray;
+
       this.router.navigate(['/siyousyaui/siyousya3']);
     };
   }
@@ -165,8 +162,6 @@ export class Siyousya2Component {
   quizStartdate(quizId: number) {
     this.http.getApi('http://localhost:8080/quiz/getques?quizId=' + quizId).subscribe(
       (res: any) => {
-        // console.log(res);
-        // console.log(this.quData);
 
         const quesList = res;
 
@@ -194,11 +189,9 @@ export class Siyousya2Component {
             options: optionsList,
           })
         })
-
         console.log(this.quData);
-
+        this.tidyQuestArray();
       });
-    this.tidyQuestArray();
   }
 
 

@@ -9,6 +9,8 @@ import { Mokuhyo2Component } from './components/mokuhyo2/mokuhyo2.component';
 import { Mokuhyo3Component } from './components/mokuhyo3/mokuhyo3.component';
 import { Mokuhyo4Component } from './components/mokuhyo4/mokuhyo4.component';
 import { Mokuhyo5Component } from './components/mokuhyo5/mokuhyo5.component';
+import { Mokuhyo6Component } from './components/mokuhyo6/mokuhyo6.component';
+import { Mokuhyo7Component } from './components/mokuhyo7/mokuhyo7.component';
 import { Mokuhyo8Component } from './components/mokuhyo8/mokuhyo8.component';
 import { SiyousyaUiComponent } from './siyousya/siyousya-ui/siyousya-ui.component';
 import { Siyousya1Component } from './siyousya/siyousya1/siyousya1.component';
@@ -28,6 +30,8 @@ export const routes: Routes = [
     { path: 'mokuhyo3', component: Mokuhyo3Component },
     { path: 'mokuhyo4', component: Mokuhyo4Component },
     { path: 'mokuhyo5', component: Mokuhyo5Component },
+    { path: 'mokuhyo6', component: Mokuhyo6Component },
+    { path: 'mokuhyo7', component: Mokuhyo7Component },
     { path: 'mokuhyo8', component: Mokuhyo8Component },
     { path: 'siyousya1', component: Siyousya1Component },
     { path: 'siyousya2', component: Siyousya2Component },

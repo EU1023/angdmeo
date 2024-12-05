@@ -33,7 +33,7 @@
         @if (ques.type == 'multi') {
             @for (option of ques.quest; track $index) {
                 <div>
-                    <input type="checkbox" [(ngModel)]="option.boxBoolean">
+                    <input type="checkbox">
                     {{ option.option }}
                 </div>
             }
@@ -42,8 +42,7 @@
 
         @if (ques.type == 'single') {
             @for (option of ques.quest; track $index) {
-                <input type="radio" name="{{ques.id}}" value="{{option.optionNumber}}"
-                       [(ngModel)]="ques.radioAnswer">
+                <input type="radio">
                     {{ option.option }}
                 <br>
 
@@ -52,7 +51,7 @@
         }
 
         @if (ques.type == 'text') {
-            <textarea style="height: 150px; width: 60%;" [(ngModel)]="ques.answer"></textarea>
+            <textarea style="height: 150px; width: 60%;"></textarea>
             <br>
         }
     }

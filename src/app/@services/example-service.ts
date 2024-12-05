@@ -5,5 +5,6 @@ import { Injectable } from "@angular/core";
 })
 
 export class ExampleService{
-  userName!: string;
+  quData!: any;
+  quesData!:any;
 }

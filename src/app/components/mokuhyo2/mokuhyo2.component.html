@@ -61,7 +61,7 @@
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>名稱</th>
         <td mat-cell *matCellDef="let element">@if(element.state=='進行中')
-                                                  {<a href="{{element.html}}">{{element.name}}</a>}
+                                                  {<a (click)="userQuestionnaireList(element.id,element.name)">{{element.name}}</a>}
                                               @else { {{element.name}} }</td>
       </ng-container>
 

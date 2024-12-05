@@ -118,7 +118,7 @@ export class Siyousya1Component {
   quizStartdate() {
     this.http.getApi('http://localhost:8080/quiz/getquiz').subscribe(
       (res: any) => {
-        console.log(res);
+        // console.log(res);
         // if (res.StatusCode != 200) {
         //   alert(res.code+' '+ res.message);
         //   return

@@ -1,5 +1,5 @@
 import { FaekData } from './../../@services/faekdata';
-import { DataService } from './../../@services/data-service';
+import { Router } from '@angular/router';
 import { Component, ViewChild, Input } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -13,8 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NgClass } from '@angular/common';
-import { ExampleService } from '../../@services/example-service';
-import { inject } from '@angular/core';
+import { HttpClientService } from '../../http-service/http-client.service';
 @Component({
   selector: 'app-mokuhyo2',
   standalone: true,
@@ -35,7 +34,9 @@ import { inject } from '@angular/core';
 })
 export class Mokuhyo2Component {
   constructor(
+    private router:Router,
     private faekData: FaekData,
+    private http:HttpClientService
   ) { }
   //時間選擇器的變數
   fdata!: any;
@@ -55,8 +56,6 @@ export class Mokuhyo2Component {
     this.dataSource.data = this.faekData.getArray();
   }
 
-
-
   //時間選擇器
   //開始時間的限制
   private readonly _currentYear1 = new Date().getFullYear();
@@ -65,7 +64,6 @@ export class Mokuhyo2Component {
   private readonly _currentYear2 = new Date().getFullYear();
   readonly minDate2 = new Date(this.fdata);
 
-
   //搜尋問卷名稱欄
   Questionnaire_n !: string;
 
@@ -73,7 +71,6 @@ export class Mokuhyo2Component {
   //搜尋按鈕
   searchChecklist() {
     //搜尋時使用的時間格式
-
     let Sdata;
     if (this.fdata != null) {
       Sdata = this.fdata.getFullYear() + '/' + (this.fdata.getMonth() + 1) + '/0' + this.fdata.getDate();
@@ -111,6 +108,12 @@ export class Mokuhyo2Component {
     this.dataSource.data = tidyData;
 
   };
+
+  userQuestionnaireList(id:number,name:string){
+
+    this.router.navigate(['/moguhyo1/mokuhyo6']);
+  }
+
   //刪除清單按鈕
   deleteChecklist() {
     this.selection.selected.forEach(s => console.log(s.name));
