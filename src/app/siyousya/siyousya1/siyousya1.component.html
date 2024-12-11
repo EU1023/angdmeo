@@ -9,23 +9,22 @@
 
     <h3>開始時間</h3>
     <mat-form-field class="example-full-width">
-      <mat-label>選擇開始時間</mat-label>
+      <mat-label>MM/DD/YYYY</mat-label>
       <input matInput [matDatepicker]="picker1" [(ngModel)]="fdata"/>
-      <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <h3>結束時間</h3>
     <mat-form-field class="example-full-width">
-      <mat-label>選擇結束時間</mat-label>
+      <mat-label>MM/DD/YYYY</mat-label>
       <input matInput [min]="fdata" [matDatepicker]="picker2" [(ngModel)]="edata" />
-      <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
     <br>
     <button type ButtonVariant = 'raised' (click)="searchChecklist()" mat-flat-button>搜尋</button>
+    <button type ButtonVariant = 'raised' (click)="searchChecklist()" mat-flat-button>清空</button>
     <br>
   </div>
 
@@ -33,12 +32,12 @@
     <table mat-table [dataSource]="dataSource" class="container">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>編號</th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        <td class="in" mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>名稱</th>
-        <td mat-cell *matCellDef="let element">@if(element.status=='進行中')
+        <td class="in" mat-cell *matCellDef="let element">@if(element.status=='進行中')
                                                     {<button (click)="siyosya2(element.id,element.name,element.description)">
                                                       {{element.name}}</button>}
                                               @else { {{element.name}} }</td>
@@ -46,22 +45,24 @@
 
       <ng-container matColumnDef='status'>
         <th mat-header-cell *matHeaderCellDef>狀態</th>
-        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        <td class="in" *matCellDef="let element"> {{element.status}} </td>
       </ng-container>
 
       <ng-container matColumnDef='start_date'>
         <th mat-header-cell *matHeaderCellDef>開始時間</th>
-        <td mat-cell *matCellDef="let element"> {{element.start_date}} </td>
+        <td class="in" mat-cell *matCellDef="let element"> {{element.start_date}} </td>
       </ng-container>
 
       <ng-container matColumnDef='end_date'>
         <th mat-header-cell *matHeaderCellDef>結束時間</th>
-        <td mat-cell *matCellDef="let element"> {{element.end_date}} </td>
+        <td class="in" mat-cell *matCellDef="let element"> {{element.end_date}} </td>
       </ng-container>
 
       <ng-container matColumnDef='GoTo'>
         <th mat-header-cell *matHeaderCellDef>前往</th>
-        <td mat-cell *matCellDef="let element"><a [ngClass]="{'renzeiyesno': element.GoTo == '' }" href="{{element.GoTo}}">前往</a></td>
+        <td class="in" mat-cell *matCellDef="let element">@if(element.status=='進行中'||element.status=='已結束')
+                                                  {<button (click)="siyosya4(element.id)">前往</button>}
+                                                  @else { 前往 }</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

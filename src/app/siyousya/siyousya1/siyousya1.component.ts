@@ -1,6 +1,7 @@
 //伺服器傳變數
 import { FaekData } from './../../@services/faekdata';
 //
+import { Managedata } from '../../@services/managedata';
 import { DataService } from './../../@services/data-service';
 import { Component, ViewChild, Input } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -13,7 +14,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { NgClass } from '@angular/common';
 import { HttpClientService } from '../../http-service/http-client.service';
 import { QuestService } from '../../@services/quest.service';
 import { Router } from '@angular/router';
@@ -31,24 +31,21 @@ import { Router } from '@angular/router';
     MatButtonModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatInputModule, NgClass,],
+    MatInputModule],
   templateUrl: './siyousya1.component.html',
   styleUrl: './siyousya1.component.scss'
 })
 export class Siyousya1Component {
   constructor(
     private http: HttpClientService,
-    private quesSiyousya2: QuestService,
+    private quesSiyousya: QuestService,
     private dataService: DataService,
-    private router: Router
+    private router: Router,
+    private mangeData: Managedata
   ) { }
   //時間選擇器的變數
   fdata!: any;
   edata!: any;
-
-
-
-
 
   //列表用
   displayedColumns: string[] = ['id', 'name', 'status', 'start_date', 'end_date', 'GoTo'];
@@ -74,17 +71,32 @@ export class Siyousya1Component {
   private readonly _currentYear2 = new Date().getFullYear();
   readonly minDate2 = new Date(this.fdata);
 
-  siyosya2(id: number, name:string, description:string) {
-    this.quesSiyousya2.questId = id;
-    this.quesSiyousya2.questData=({
-      quizName:name,
-      quizDes:description,
+  siyosya2(id: number, name: string, description: string) {
+    this.quesSiyousya.questId = id;
+    this.quesSiyousya.questData = ({
+      quizName: name,
+      quizDes: description,
     });
-    this.router.navigate(['/siyousyaui/siyousya2']);
 
+    if (this.mangeData.manage == false) {
+      this.router.navigate(['/siyousyaui/siyousya2']);
+    }
+    if (this.mangeData.manage == true) {
+      this.router.navigate(['/moguhyo1/siyousya2']);
+    }
+
+  };
+
+  siyosya4(id: number) {
+    this.quesSiyousya.questId = id;
+
+    if (this.mangeData.manage == false) {
+      this.router.navigate(['/siyousyaui/siyousya4']);
+    }
+    if (this.mangeData.manage == true) {
+      this.router.navigate(['/moguhyo1/siyousya4']);
+    }
   }
-
-
 
 
 
@@ -139,24 +151,26 @@ export class Siyousya1Component {
   //搜尋按鈕
   searchChecklist() {
     //搜尋時使用的時間格式
-
     let Sdata;
-    if (!this.fdata) {
-      Sdata = this.fdata.getFullYear() + '/' + (this.fdata.getMonth() + 1) + '/' + this.fdata.getDate();
-    }
+    let enddata;
+
+
+    Sdata = this.dataService.changeDateFormat2(this.fdata);
+    enddata = this.dataService.changeDateFormat2(this.edata);
+
     this.dS = this.dataSource.data;
-    // console.log(Sdata);
     console.log(this.dS);
-    // let enddata = this.edata.getFullYear()+'/'+(this.edata.getMonth()+1) +'/'+ this.edata.getDate();
 
     let tidyData: PeriodicElement[] = [];
     if (!this.Questionnaire_n) {
       //開始時間
       for (let array of this.dS) {
-        if (array.start_time.indexOf(Sdata) != -1) {
+        console.log(array);
+        //====發生錯誤=====
+        if (array != -1) {
           console.log(array.start_time);
-
           tidyData.push(array);
+
         }
       }
     } else if (!this.fdata) {

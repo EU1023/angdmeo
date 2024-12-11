@@ -5,10 +5,15 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientService } from '../../http-service/http-client.service';
 import { ExampleService } from '../../@services/example-service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 @Component({
   selector: 'app-siyousya2',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatIconModule],
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatFormFieldModule,],
   templateUrl: './siyousya2.component.html',
   styleUrl: './siyousya2.component.scss'
 })
@@ -52,44 +57,6 @@ export class Siyousya2Component {
   }
 
   //多選M 單選Q 文字輸入T
-
-  // quData = {
-  //   title: '問卷題目位置',
-  //   sData: '2024/11/07',
-  //   eData: '2024/12/31',
-  //   ex: '問卷內容說明內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容',
-  //   quArray: [{
-  //     quId: 1,
-  //     need: true,
-  //     quName: '請選擇喜歡的食物(多選)',
-  //     type: 'M',
-  //     options: [
-  //       { optionName: '拉麵', code: 'A' },
-  //       { optionName: '披薩', code: 'B' },
-  //       { optionName: '肉燥飯', code: 'C' },
-  //     ]
-  //   },
-  //   {
-  //     quId: 2,
-  //     need: true,
-  //     quName: '請選擇最愛的國家',
-  //     type: 'Q',
-  //     options: [
-  //       { optionName: '台灣', code: 'A' },
-  //       { optionName: '日本', code: 'B' },
-  //       { optionName: '美國', code: 'C' },
-  //     ]
-  //   },
-  //   {
-  //     quId: 3,
-  //     need: false,
-  //     quName: '請說明您的看法',
-  //     type: 'T',
-  //     options: []
-  //   }]
-  // }
-
-
   // 資料放入newQuestArray for產生列表格數
   tidyQuestArray() {
     for (let array of this.quData) {
@@ -102,6 +69,10 @@ export class Siyousya2Component {
       }
       newArray.options = options;
     }
+  }
+
+  gohomo(){
+    this.router.navigate(['']);
   }
 
   //資料傳送至預覽頁 暫存
@@ -196,3 +167,38 @@ export class Siyousya2Component {
 
 
 }
+// quData = {
+  //   title: '問卷題目位置',
+  //   sData: '2024/11/07',
+  //   eData: '2024/12/31',
+  //   ex: '問卷內容說明內容內容內容內容內容內容內容內容內容內容內容內容內容內容內容',
+  //   quArray: [{
+  //     quId: 1,
+  //     need: true,
+  //     quName: '請選擇喜歡的食物(多選)',
+  //     type: 'M',
+  //     options: [
+  //       { optionName: '拉麵', code: 'A' },
+  //       { optionName: '披薩', code: 'B' },
+  //       { optionName: '肉燥飯', code: 'C' },
+  //     ]
+  //   },
+  //   {
+  //     quId: 2,
+  //     need: true,
+  //     quName: '請選擇最愛的國家',
+  //     type: 'Q',
+  //     options: [
+  //       { optionName: '台灣', code: 'A' },
+  //       { optionName: '日本', code: 'B' },
+  //       { optionName: '美國', code: 'C' },
+  //     ]
+  //   },
+  //   {
+  //     quId: 3,
+  //     need: false,
+  //     quName: '請說明您的看法',
+  //     type: 'T',
+  //     options: []
+  //   }]
+  // }

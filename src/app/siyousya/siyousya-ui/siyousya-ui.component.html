@@ -1,17 +1,4 @@
-<!-- <div class="menu_up"  style="position: fixed;">
-  <ul>
-    <li>
-      <button mat-icon-button (click)="home()" class="home" for="checkbox" >
-        <mat-icon class="home_m">home</mat-icon>
-      </button>
-    </li>
-    <li class="example-spacer">
-      <button mat-icon-button (click)="touroku()" class="group" for="checkbox" >
-        <mat-icon>manage_accounts</mat-icon>
-      </button>
-    </li>
-  </ul>
-</div> -->
+
 
 <mat-toolbar class="menu_up">
   <button mat-icon-button (click)="home()" class="home" for="checkbox" >
@@ -25,9 +12,17 @@
   </button>
 </mat-toolbar>
 
-<div  class="menudiv">
+<!-- <div  class="menudiv">
   <div class="manaka">
     <router-outlet></router-outlet>
   </div>
-</div>
+</div> -->
+
+<mat-drawer-container class="menudiv" autosize>
+  <mat-drawer #drawer class="example-sidenav"  mode="over">
+  </mat-drawer>
+  <div class="manaka">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
 

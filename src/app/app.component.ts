@@ -18,7 +18,7 @@ import { SiyousyaUiComponent } from "./siyousya/siyousya-ui/siyousya-ui.componen
   imports: [
     RouterOutlet, MatIconModule, MatPaginatorModule, MatTableModule,
     FormsModule, ReactiveFormsModule,
-    SiyousyaUiComponent
+
 ], //組件位置
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

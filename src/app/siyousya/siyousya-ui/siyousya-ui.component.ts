@@ -11,8 +11,6 @@ import { Managedata } from '../../@services/managedata';
   selector: 'app-siyousya-ui',
   standalone: true,
   imports: [RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
     MatIconModule,
     MatSidenavModule,
     MatButtonModule,

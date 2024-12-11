@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 
 export class QuestService {
+  quizId!: number;
   questId!: number;
   questData!: any;
 }

@@ -1,20 +1,20 @@
-@for (quest of questData.quest; track $index) {
+@for (quest of questData; track $index) {
   <div class="divCss">
     <!-- 判斷不是文字題就顯示圖表 -->
-    @if (quest.type != 'T') {
+    @if (quest.type != 'text') {
       <div class="canvasCss">
-        <canvas id="{{quest.id}}"></canvas>
+        <canvas id="{{quest.quesId}}"></canvas>
       </div>
     }
     <div class="divText">
-      <h3>題目： {{quest.name}}</h3>
+      <h3>題目： {{quest.quesName}}</h3>
       <!-- 判斷不是文字題就顯示選項跟數量 -->
       <!-- 判斷是文字提就顯示文字 -->
-      @if (quest.type != 'T') {
+      @if (quest.type != 'text') {
           @for (label of quest.labels; track $index) {
             <h5 class="forText" style="padding-left: 15px;">
-              選項： {{ quest.labels[$index] }}
-              <span style="float: right;">{{ quest.data[$index] }}</span>
+              選項： {{ quest.labels }}
+              <span style="float: right;">{{ quest.data }}</span>
             </h5>
           }
       }
@@ -22,12 +22,12 @@
   </div>
 }
 
-<div style="border-style:solid;padding: 3%;">
-  <h3>題目： {{questData.quest2.name}}</h3>
-  @for (data of questData.quest2.data; track $index) {
+<!-- <div style="border-style:solid;padding: 3%;">
+  <h3>題目： {{statisticsData.name}}</h3>
+  @for (data of statisticsData.data; track $index) {
     <h5 class="typeTCss">{{data}}</h5>
   }
-</div>
+</div> -->
 <div>
   <button mat-flat-button (click)="goBack()">返回首頁</button>
 </div>

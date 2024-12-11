@@ -9,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { DataService } from '../../@services/data-service';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/router';
 @Component({
   selector: 'app-mokuhyo3',
@@ -22,7 +23,9 @@ import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/ro
   styleUrl: './mokuhyo3.component.scss'
 })
 export class Mokuhyo3Component {
-  constructor(private router: Router,
+  constructor(
+    private dataService: DataService,
+    private router: Router,
     private initialdataservice: initialDataService,
   ) { }
 
@@ -30,8 +33,8 @@ export class Mokuhyo3Component {
   questionnaireContent !: string;
 
   //時間選擇器的變數
-  fdata!: any;
-  edata!: any;
+  fdata=new Date();
+  edata=new Date();
 
   //時間選擇器
   //開始時間的限制
@@ -46,28 +49,12 @@ export class Mokuhyo3Component {
       alert('請輸入內容');
       return;
     } else {
-      let fdatamonth = this.fdata.getMonth()+1; //月
-      let fdatadate = this.fdata.getDate(); //日
-      let edatamonth = this.edata.getMonth()+1; //月
-      let edatadate = this.edata.getDate(); //日
-      if (String(fdatamonth).length == 1) {
-        fdatamonth = '0' + fdatamonth;
-      }
-      if (String(fdatadate).length == 1) {
-        fdatadate = '0' + fdatadate;
-      }
-      if (String(edatamonth).length == 1) {
-        edatamonth = '0' + edatamonth;
-      }
-      if (String(edatadate).length == 1) {
-        edatadate = '0' + edatadate;
-      }edatadate
       this.initialdataservice.quiz = {
 
         name: this.questionnaireName,
         description: this.questionnaireContent,
-        start_date: (this.fdata.getFullYear() + '-' + fdatamonth + '-' + fdatadate),
-        end_date: (this.edata.getFullYear() + '-' + edatamonth + '-' + edatadate),
+        start_date: this.dataService.changeDateFormat2(this.fdata),
+        end_date: this.dataService.changeDateFormat2(this.edata),
         published: true,
       };
       this.router.navigate(['/moguhyo1/mokuhyo4'])

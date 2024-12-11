@@ -1,0 +1,129 @@
+.siyousya {
+  border-style: solid;
+
+  height: 100%;
+  width: 80%;
+
+  // position: absolute;
+  top: 0%;
+  left: 10%;
+
+  // overflow: auto;
+
+  .container {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  h1 {
+    // border-style: solid;
+    width: 100%;
+    height: 5%;
+    font-size: 45px;
+    // transform: translate(45%);
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  p {
+    font-size: 27px;
+    transform: translate(45%);
+  }
+
+  form div label {
+    font-size: 23px;
+  }
+
+  .inputfrom {
+    margin-left: 20px;
+    width: 40%;
+    height: 40px;
+  }
+
+  .MST {
+    zoom: 150%;
+  }
+
+
+  .forsitumon {
+    transform: translate(25%);
+
+    h5 {
+      font-size: 40px;
+    }
+
+    font-size:30px;
+  }
+
+
+  // margin: 0;
+  // // min-height: 100vh;
+  // background-color: #e493d0;
+  // background-image:
+  //   radial-gradient(closest-side, rgb(30, 255, 244), rgba(255, 217, 30, 0)),
+  //   radial-gradient(closest-side, rgb(45, 255, 38), rgba(255, 125, 38, 0)),
+  //   radial-gradient(closest-side, rgb(146, 236, 134), rgba(162, 0, 226, 0)),
+  //   radial-gradient(closest-side, rgb(61, 249, 255, 1), rgba(61, 249, 255, 0)),
+  //   radial-gradient(closest-side, rgb(255, 48, 193), rgba(255, 48, 48, 0)) !important;
+  // background-size:
+  //   130vmax 130vmax,
+  //   80vmax 80vmax,
+  //   90vmax 90vmax,
+  //   110vmax 110vmax,
+  //   90vmax 90vmax;
+  // background-position:
+  //   -80vmax -80vmax,
+  //   60vmax -30vmax,
+  //   10vmax 10vmax,
+  //   -30vmax -10vmax,
+  //   50vmax 50vmax;
+  // background-repeat: no-repeat;
+  // animation: 5s movement linear infinite;
+
+}
+
+.botam {
+  position: absolute;
+  bottom: 10%;
+  right: 0%;
+  size: 10px;
+
+  button {
+    width: 120px;
+    height: 40px;
+  }
+}
+
+// @keyframes movement {
+
+//   0%,
+//   100% {
+//     background-size:
+//       130vmax 130vmax,
+//       80vmax 80vmax,
+//       90vmax 90vmax,
+//       110vmax 110vmax,
+//       90vmax 90vmax;
+//     background-position:
+//       -80vmax -80vmax,
+//       60vmax -30vmax,
+//       10vmax 10vmax,
+//       -30vmax -10vmax,
+//       50vmax 50vmax;
+//   }
+
+//   25% {
+//     background-size:
+//       100vmax 100vmax,
+//       90vamx 90vamx,
+//       100vamx 100vamx,
+//       90vamx 90vamx,
+//       60vamx 60vamx;
+//     background-position:
+//       -60vmax -90vmax,
+//       50vmax -40vmax,
+//       0vmax -20vmax,
+//       -40vmax -20vmax,
+//       40vmax 60vmax;
+//   }
+// }

@@ -1,6 +1,5 @@
-import { FaekData } from './../../@services/faekdata';
 import { Router } from '@angular/router';
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, ChangeDetectionStrategy, computed, signal } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +13,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NgClass } from '@angular/common';
 import { HttpClientService } from '../../http-service/http-client.service';
+import { QuestService } from '../../@services/quest.service';
+import { DataService } from '../../@services/data-service';
+import { } from '@angular/core';
 @Component({
   selector: 'app-mokuhyo2',
   standalone: true,
@@ -28,22 +30,24 @@ import { HttpClientService } from '../../http-service/http-client.service';
     MatButtonModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatInputModule, NgClass,],
+    MatInputModule,
+    NgClass],
   templateUrl: './mokuhyo2.component.html',
   styleUrl: './mokuhyo2.component.scss'
 })
 export class Mokuhyo2Component {
   constructor(
-    private router:Router,
-    private faekData: FaekData,
-    private http:HttpClientService
+    private router: Router,
+    private quesSiyousya2: QuestService,
+    private dataService: DataService,
+    private http: HttpClientService
   ) { }
   //時間選擇器的變數
   fdata!: any;
   edata!: any;
   //列表用
 
-  displayedColumns: string[] = ['select', 'id', 'name', 'state', 'start_time', 'end_time', 'GoTo'];
+  displayedColumns: string[] = ['select', 'id', 'name', 'status', 'start_date', 'end_date', 'GoTo'];
   dataSource = new MatTableDataSource<PeriodicElement>();
   //打勾
   selection = new SelectionModel<PeriodicElement>(true, []);
@@ -52,8 +56,11 @@ export class Mokuhyo2Component {
     this.dataSource.paginator = this.paginator;
   }
 
+  //當前時間(年月日)
+  date!: any;
   ngOnInit() {
-    this.dataSource.data = this.faekData.getArray();
+    this.date = this.dataService.changeDateFormat(new Date());
+    this.quizStartdate();
   }
 
   //時間選擇器
@@ -72,13 +79,12 @@ export class Mokuhyo2Component {
   searchChecklist() {
     //搜尋時使用的時間格式
     let Sdata;
-    if (this.fdata != null) {
-      Sdata = this.fdata.getFullYear() + '/' + (this.fdata.getMonth() + 1) + '/0' + this.fdata.getDate();
-    }
+    let enddata;
+    Sdata = this.dataService.changeDateFormat2(this.fdata);
+    enddata = this.dataService.changeDateFormat2(this.edata);
+
     this.dS = this.dataSource.data;
-    // console.log(Sdata);
     console.log(this.dS);
-    // let enddata = this.edata.getFullYear()+'/'+(this.edata.getMonth()+1) +'/'+ this.edata.getDate();
 
     let tidyData: PeriodicElement[] = [];
     if (!this.Questionnaire_n) {
@@ -109,14 +115,33 @@ export class Mokuhyo2Component {
 
   };
 
-  userQuestionnaireList(id:number,name:string){
-
+  userQuestionnaireList(id: number) {
+    this.quesSiyousya2.quizId = id;
     this.router.navigate(['/moguhyo1/mokuhyo6']);
   }
 
   //刪除清單按鈕
   deleteChecklist() {
-    this.selection.selected.forEach(s => console.log(s.name));
+    const quiz_id_list = this.dataSource.data
+      .filter(row => this.selection.isSelected(row))
+      // map 遍歷將 quiz id 取出
+      .map(item => item.id);
+    const deletreq = { quizIdList: quiz_id_list };
+
+    console.log(deletreq);
+
+    this.http.postApi('http://localhost:8080/quiz/delete', deletreq).subscribe(
+      (res: any) => {
+        if (res.StatusCode != 200) {
+          console.log(res);
+          return
+        }
+      });
+
+      // 前端濾除被選取的資料列
+      this.dataSource.data = this.dataSource.data.filter(row => !this.selection.isSelected(row));
+      // 清除選取狀態
+      this.selection.clear();
   };
 
   //勾選處
@@ -131,6 +156,51 @@ export class Mokuhyo2Component {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
+
+
+
+  //依時間賦予狀態
+  getStatus(item: PeriodicElement) {
+    const nowDate = this.date;
+    const startDate = this.dataService.changeDateFormat(new Date(item.start_date));
+    const endDate = this.dataService.changeDateFormat(new Date(item.end_date));
+    const published = new Boolean(item.published);
+    if (published == false) {
+      return '未發布';
+    }
+    if (published == true) {
+      if (nowDate < startDate) {
+        return '尚未開始';
+      }
+      if (nowDate > endDate) {
+        return '已結束';
+      }
+      if (nowDate >= startDate && this.date <= endDate) {
+        return '進行中';
+      }
+    }
+    return '';
+  }
+
+  //儲存問卷名稱 說明內容陣列
+  quizNameDescription: any;
+
+  quizStartdate() {
+    this.http.getApi('http://localhost:8080/quiz/getquiz').subscribe(
+      (res: any) => {
+        // console.log(res);
+        // if (res.StatusCode != 200) {
+        //   alert(res.code+' '+ res.message);
+        //   return
+        // }
+        // this.dataSource.data = res;
+        // console.log(Array.isArray(res));
+        this.dataSource.data = res.map((item: PeriodicElement) => {
+          item.status = this.getStatus(item);
+          return item;
+        });
+      });
+  }
 }
 
 
@@ -139,8 +209,10 @@ export class Mokuhyo2Component {
 export interface PeriodicElement {
   id: number;
   name: string;
-  state: string;
-  start_time: string;
-  end_time: string;
+  description: String;
+  status?: String;
+  start_date: string;
+  end_date: string;
+  published: boolean;
   GoTo: string;
 }
