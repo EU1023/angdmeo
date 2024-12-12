@@ -120,8 +120,11 @@ export class Siyousya4Component {
 
     this.createPie();
   }
-  goBack() {
-    this.router.navigate(['/siyousyaui/siyousya1']);
+  goBack(){
+    this.router.navigate(['/moguhyo1/mokuhyo6']);
+  }
+  gohomu() {
+    this.router.navigate(['']);
   }
 
 

@@ -141,6 +141,7 @@ export class Siyousya1Component {
           item.status = this.getStatus(item);
           return item;
         });
+
       });
   }
 
@@ -148,47 +149,69 @@ export class Siyousya1Component {
   Questionnaire_n !: string;
 
   dS: Array<any> = [];
+  dsfast: Array<any> = [];
   //搜尋按鈕
   searchChecklist() {
-    //搜尋時使用的時間格式
-    let Sdata;
-    let enddata;
+    // 搜尋時使用的時間格式
+    //起始時間
+    let Sdata = this.dataService.changeDateFormat2(this.fdata);
+    //結束時間
+    let enddata = this.dataService.changeDateFormat2(this.edata);
 
 
-    Sdata = this.dataService.changeDateFormat2(this.fdata);
-    enddata = this.dataService.changeDateFormat2(this.edata);
+    let startDate = new Date(Sdata);
+    let endDate = new Date(enddata);
+    console.log(Sdata);
+    console.log(enddata);
 
     this.dS = this.dataSource.data;
-    console.log(this.dS);
-
     let tidyData: PeriodicElement[] = [];
-    if (!this.Questionnaire_n) {
-      //開始時間
-      for (let array of this.dS) {
-        console.log(array);
-        //====發生錯誤=====
-        if (array != -1) {
-          console.log(array.start_time);
-          tidyData.push(array);
 
-        }
-      }
-    } else if (!this.fdata) {
-      //結束時間
-      for (let array of this.dS) {
-        if (array.end_time.indexOf(this.edata) != -1) {
-          tidyData.push(array);
-        }
-      }
+    // 如果沒有任何搜尋條件，則恢復資料列表
+    if (!this.Questionnaire_n && !this.fdata && !this.edata) {
+      this.quizStartdate(); // 恢復原始資料
     } else {
-      //名稱
+      // 使用模糊搜尋條件：名稱、開始時間、結束時間
       for (let array of this.dS) {
-        if (array.name.indexOf(this.Questionnaire_n) != -1) {
+        let match = true;
+
+        // 檢查名稱條件（模糊搜尋）
+        if (this.Questionnaire_n && array.name.indexOf(this.Questionnaire_n) === -1) {
+          match = false;
+        }
+
+        // 檢查結束時間條件
+        if (enddata && array.end_date) {
+          let itemEndDate = new Date(array.end_date);  // 資料中的結束時間
+          // 如果指定了結束時間，檢查資料的結束時間是否不晚於結束時間範圍
+          if (itemEndDate > endDate) {
+            match = false;
+          }
+        }
+
+        // 檢查起始時間條件（如果有指定起始時間）
+        if (Sdata && array.start_date) {
+          let itemStartDate = new Date(array.start_date);
+          // 如果指定了起始時間，檢查資料的起始時間是否不早於起始時間範圍
+          if (itemStartDate < startDate) {
+            match = false;
+          }
+        }
+
+        // 如果符合所有條件，將該項目加入結果中
+        if (match) {
           tidyData.push(array);
         }
       }
     }
+
+    // 更新資料源
     this.dataSource.data = tidyData;
+
+    // 清空搜尋框
+    this.Questionnaire_n = '';
+    this.fdata = '';
+    this.edata = '';
   };
 }
 

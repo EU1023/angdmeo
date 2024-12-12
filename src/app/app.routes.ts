@@ -23,8 +23,8 @@ import { Chart } from 'chart.js/auto';
 export const routes: Routes = [
   { path: '', redirectTo:'/siyousyaui/siyousya1' , pathMatch: 'full'},
   { path: 'moguhyo1', component: Mokuhyo1Component, children:[
-    // { path: '', redirectTo: '/moguhyo1/mokuhyo3', pathMatch: 'full'},
-    { path: '', redirectTo: '/moguhyo1/siyousya1', pathMatch: 'full'},
+    { path: 'moguhyo1', redirectTo: '/moguhyo1/mokuhyo2', pathMatch: 'full'},
+    { path: '', redirectTo: '/moguhyo1/siyousya3', pathMatch: 'full'},
     { path: 'touroku', component: TourokuComponent },
     { path: 'mokuhyo2', component: Mokuhyo2Component },
     { path: 'mokuhyo3', component: Mokuhyo3Component },

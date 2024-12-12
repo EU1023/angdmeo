@@ -59,7 +59,7 @@
       </ng-container>
 
       <ng-container matColumnDef='GoTo'>
-        <th mat-header-cell *matHeaderCellDef>前往</th>
+        <th mat-header-cell *matHeaderCellDef>統計</th>
         <td class="in" mat-cell *matCellDef="let element">@if(element.status=='進行中'||element.status=='已結束')
                                                   {<button (click)="siyosya4(element.id)">前往</button>}
                                                   @else { 前往 }</td>

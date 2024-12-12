@@ -155,13 +155,13 @@ export class Mokuhyo5Component {
     }
     return true;
   }
-
-  storeService() {
+  // 僅儲存
+  juststoreService() {
     let quesList: {}[] = [];
     console.log('for前');
-    for (let i = 0; i<this.ques.length; i++) {
+    for (let i = 0; i < this.ques.length; i++) {
       let res = {
-        quiz_id:0,
+        quiz_id: 0,
         quesId: this.ques[i].ques_id,
         quesName: this.ques[i].ques_name,
         type: this.ques[i].type,
@@ -174,7 +174,46 @@ export class Mokuhyo5Component {
     console.log(quesList);
     console.log('routerData前');
     let routerData = {
-      id:0,
+      id: 0,
+      name: this.quiz.name,
+      description: this.quiz.description,
+      start_date: this.quiz.start_date,
+      end_date: this.quiz.end_date,
+      published: false,
+      ques_list: quesList,
+    }
+    console.log(routerData);
+    console.log('postapi前');
+    this.http.postApi('http://localhost:8080/quiz/create', routerData).subscribe((res: any) => {
+      console.log(res);
+      if (res.StatusCode != 200) {
+        alert(res.code + ' ' + res.message);
+        return
+      }
+      alert('回傳成功，請做確認');
+    })
+    this.router.navigate(['/moguhyo1']);
+  }
+  // 儲存並發布
+  storeService() {
+    let quesList: {}[] = [];
+    console.log('for前');
+    for (let i = 0; i < this.ques.length; i++) {
+      let res = {
+        quiz_id: 0,
+        quesId: this.ques[i].ques_id,
+        quesName: this.ques[i].ques_name,
+        type: this.ques[i].type,
+        required: this.ques[i].required,
+        options: JSON.stringify(this.ques[i].quest)
+      }
+      quesList = [...quesList, res];
+    };
+
+    console.log(quesList);
+    console.log('routerData前');
+    let routerData = {
+      id: 0,
       name: this.quiz.name,
       description: this.quiz.description,
       start_date: this.quiz.start_date,
@@ -187,7 +226,7 @@ export class Mokuhyo5Component {
     this.http.postApi('http://localhost:8080/quiz/create', routerData).subscribe((res: any) => {
       console.log(res);
       if (res.StatusCode != 200) {
-        alert(res.code+' '+ res.message);
+        alert(res.code + ' ' + res.message);
         return
       }
       alert('回傳成功，請做確認');
