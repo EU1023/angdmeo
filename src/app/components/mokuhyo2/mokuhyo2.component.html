@@ -9,33 +9,29 @@
 
     <h3>開始時間</h3>
     <mat-form-field class="example-full-width">
-      <mat-label>選擇開始時間</mat-label>
+      <mat-label>MM/DD/YYYY</mat-label>
       <input matInput [matDatepicker]="picker1" [(ngModel)]="fdata" />
-      <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <h3>結束時間</h3>
     <mat-form-field class="example-full-width">
-      <mat-label>選擇結束時間</mat-label>
+      <mat-label>MM/DD/YYYY</mat-label>
       <input matInput [min]="fdata" [matDatepicker]="picker2" [(ngModel)]="edata" />
-      <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
     <br>
     <button (click)="searchChecklist()" mat-flat-button>搜尋</button>
-    <button (click)="searchChecklist()" mat-flat-button>清除</button>
     <br>
   </div>
 
   <div class="checklistMenu">
 
-    <button (click)="deleteChecklist()" mat-fab aria-label="Example icon button with a delete icon">
+    <button class="delete" (click)="deleteChecklist()" mat-fab aria-label="Example icon button with a delete icon">
       <mat-icon fontIcon="delete"></mat-icon>
     </button>
-
 
     <table mat-table [dataSource]="dataSource" class="container">
 
@@ -52,7 +48,6 @@
           </mat-checkbox>
         </td>
       </ng-container>
-
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>編號</th>
@@ -85,7 +80,7 @@
         <th mat-header-cell *matHeaderCellDef>編輯</th>
         <td mat-cell *matCellDef="let element">
           @if(element.status=='尚未開始'||element.status=='未發布'){
-            <button (click)="editingOptions(element.id)">前往</button>}
+            <button (click)="editingOptions(element)">前往</button>}
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

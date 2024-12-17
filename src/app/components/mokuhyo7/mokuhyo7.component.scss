@@ -1,0 +1,105 @@
+/* 主容器樣式 */
+.siyousya-feedback {
+  width: 80%;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.siyousya-feedback h1 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.siyousya-feedback p {
+  text-align: center;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+/* 顯示資料區塊樣式 */
+.siyousya-feedback div {
+  margin-bottom: 15px;
+}
+
+.siyousya-feedback label {
+  font-weight: bold;
+  color: #555;
+}
+
+.siyousya-feedback span {
+  font-size: 16px;
+  color: #333;
+}
+
+.siyousya-feedback span.required {
+  color: red; /* 必填欄位的紅色標示 */
+}
+
+.siyousya-feedback .forsitumon ol {
+  padding-left: 20px;
+  list-style-type: none;
+  margin-left: 0;
+  margin-bottom: 15px;
+}
+
+/* 顯示問題文字樣式 */
+.siyousya-feedback .forsitumon h5 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.siyousya-feedback ol {
+  padding-left: 20px;
+}
+
+.siyousya-feedback ol span {
+  font-size: 16px;
+  color: #555;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.siyousya-feedback .forsitumon ol li {
+  margin-bottom: 10px;
+}
+
+/* 增加選項文字大小 */
+.siyousya-feedback .forsitumon div {
+  font-size: 18px; /* 增加每個選項文字的大小 */
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* 增加文字間距 */
+.siyousya-feedback div span {
+  font-size: 16px;
+}
+
+
+.botam {
+  position: fixed;
+  bottom: 3%;
+  right: 2%;
+
+  background-color: #0066cc;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+
+  button {
+    width: 120px;
+    height: 40px;
+  }
+}

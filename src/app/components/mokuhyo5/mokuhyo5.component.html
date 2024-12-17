@@ -1,66 +1,69 @@
-<h1>{{quiz.name}}</h1>
-<div class="siyousya">
-  <p>{{quiz.description}}</p>
-  <br>
-  <div id="auth-form" class="form active">
-    <label>名字:</label>
-    <input  placeholder="名字">
+<div class="quiz-container">
+  <h1>{{quiz.name}}</h1>
+  <div class="siyousya">
+    <p>{{quiz.description}}</p>
     <br>
-    <label>手機:</label>
-    <input  placeholder="手機">
-    <br>
-    <label>信箱:</label>
-    <input  placeholder="信箱">
-    <br>
-    <label>年齡:</label>
-    <input  placeholder="年齡">
-    <br>
+    <div id="auth-form" class="form active">
+      <label>名字:</label>
+      <input type="text" placeholder="名字">
+      <br>
+      <label>手機:</label>
+      <input type="text" placeholder="手機">
+      <br>
+      <label>信箱:</label>
+      <input type="email" placeholder="信箱">
+      <br>
+      <label>年齡:</label>
+      <input type="number" placeholder="年齡">
+      <br>
+    </div>
   </div>
-</div>
-<br>
-<div class="forsitumon">
-  <ol>
-    @for (ques of newQuestArray; track $index) {
+  <br>
+  <div class="forsitumon">
+    <ol>
+      @for (ques of newQuestArray; track $index) {
         <li>
-            <h5>
-                {{ ques.ques_name }}
-                @if (ques.required) {
-                    <span style="color: red;">*</span>
-                }
-            </h5>
+          <h5>
+            {{ ques.ques_name }}
+            @if (ques.required) {
+              <span style="color: red;">*</span>
+            }
+          </h5>
         </li>
         <!-- 多選M 單選Q 文字輸入T -->
         @if (ques.type == 'multi') {
-            @for (option of ques.quest; track $index) {
-                <div>
-                    <input type="checkbox">
-                    {{ option.option }}
-                </div>
-            }
-            <br>
+          @for (option of ques.quest; track $index) {
+            <div>
+              <input type="checkbox">
+              {{ option.option }}
+            </div>
+          }
+          <br>
         }
 
         @if (ques.type == 'single') {
-            @for (option of ques.quest; track $index) {
-                <input type="radio">
-                    {{ option.option }}
-                <br>
-
-            }
+          @for (option of ques.quest; track $index) {
+            <input type="radio">
+            {{ option.option }}
             <br>
+          }
+          <br>
         }
 
         @if (ques.type == 'text') {
-            <textarea style="height: 150px; width: 60%;"></textarea>
-            <br>
+          <textarea style="height: 150px; width: 60%;"></textarea>
+          <br>
         }
-    }
+      }
     </ol>
+  </div>
 </div>
 
+
 <div class="botam">
-  <button mat-flat-button >取消</button>
+  <button mat-flat-button (click)="Cancel()" >取消</button>
   <button mat-flat-button (click)="goMokuhyo4()">上一步</button>
+  <button mat-flat-button (click)="updateQues()">更新問卷</button>
   <button mat-flat-button (click)="juststoreService()">僅儲存</button>
   <button mat-flat-button (click)="storeService()">儲存並發布</button>
 </div>

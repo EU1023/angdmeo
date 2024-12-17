@@ -1,56 +1,58 @@
-@if (quizName=='') {
+<div class="siyousya-feedback">
+  @if (quizName=='') {
   <h1>無</h1>
-}
-@else{<h1>{{quizName}}</h1>}
-<p>{{quizDes}}</p>
-<div>
-  <label>名稱</label><span style="color: red;">*</span><span>{{userFeedbackdata.userName}}</span>
-</div>
+  }
+  @else{<h1>{{quizName}}</h1>}
+  <p>{{quizDes}}</p>
+  <div>
+    <label>名稱</label><span style="color: red;">*</span><span>{{userFeedbackdata.userName}}</span>
+  </div>
 
-<div>
-  <label>手機</label><span>{{userFeedbackdata.phone}}</span>
-</div>
+  <div>
+    <label>手機</label><span>{{userFeedbackdata.phone}}</span>
+  </div>
 
-<div>
-  <label>信箱</label><span style="color: red;">*</span><span>{{userFeedbackdata.email}}</span>
-</div>
+  <div>
+    <label>信箱</label><span style="color: red;">*</span><span>{{userFeedbackdata.email}}</span>
+  </div>
 
-<div>
-  <label>年齡</label><span>{{userFeedbackdata.age}}</span>
-</div>
+  <div>
+    <label>年齡</label><span>{{userFeedbackdata.age}}</span>
+  </div>
 
-<div>
-  <ol>
-    @for (quest of quData; track $index) {
+  <div class="forsitumon">
+    <ol>
+      @for (quest of quData; track $index) {
       <li>
         <h5>
           {{ quest.quesName }}
           @if (quest.required) {
-            <span style="color: red;">*</span>
+          <span style="color: red;">*</span>
           }
         </h5>
       </li>
       @if (quest.type == 'multi') {
-        <ol>
-          @for (option of options; track $index) {
-            <span>{{ option.answer }}</span>
-            <br>
-          }
-        </ol>
+      <ol>
+        @for (option of options; track $index) {
+        <span>{{ option.answer }}</span>
+        <br>
+        }
+      </ol>
       }
       @if( quest.type == 'single' ){
-        <ol>
-          <span>{{quest.answer}}</span>
-        </ol>
+      <ol>
+        <span>{{quest.answer}}</span>
+      </ol>
       }
       @if ( quest.type == 'text') {
-        <ol>
-          <span>{{quest.answer}}</span>
-        </ol>
+      <ol>
+        <span>{{quest.answer}}</span>
+      </ol>
       }
-    }
-  </ol>
+      }
+    </ol>
+  </div>
 </div>
 <div>
-  <button (click)="goSiyousya2()">返回上一頁</button>
+  <button class="botam" (click)="goSiyousya2()">返回上一頁</button>
 </div>

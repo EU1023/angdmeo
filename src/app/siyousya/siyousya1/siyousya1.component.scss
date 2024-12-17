@@ -10,13 +10,14 @@
   justify-content: center;
 
   height: 60%;
-  width:50%;
+  width:30%;
 
   float: left;
   border-left: 3px;
-  border-style: solid;
+  background-color: rgb(255, 255, 255);
+  // border-style: solid;
 
-  margin-top:10px;
+  margin-top:20px;
   margin-bottom:10px;
   margin-left: 10px;
   margin-right: 5px;
@@ -26,12 +27,27 @@
   width:100%;
   height: 90%;
   border-right: 3px;
-  border-style: solid;
+  // border-style: solid;
 
-  margin-top:10px;
+
+  margin-top:0px;
   margin-bottom:10px;
   margin-left: 5px;
   margin-right: 10px;
+
+  button {
+    background: none;              /* 移除背景 */
+    border: none;                  /* 移除邊框 */
+    color: #007bff;                /* 設定文字顏色為藍色，像是超連結 */
+    text-decoration: underline;     /* 加上底線 */
+    cursor: pointer;               /* 設定鼠標樣式為點擊型 */
+    font-size: 20px;                /* 可自訂字型大小 */
+  }
+
+  button:hover {
+    color: #0056b3;                /* 當滑鼠懸停時改變顏色 */
+    text-decoration: underline;     /* 保持底線 */
+  }
 }
 //
 .container {
@@ -51,9 +67,12 @@ th, td {
   padding: 8px;
   text-align: left;
 }
-
+.mat-mdc-row, .mdc-data-table__content{
+  font-size: 20px !important;
+}
 th {
   background-color: #11aa2a;
+  font-size: 23px !important;
 }
 
 .renzeiyesno{
@@ -63,17 +82,20 @@ th {
   cursor: default;
 }
 ::ng-deep.mat-mdc-header-row{
-  background-color: #8a3809 !important;
+  background-color: #11aa2a !important;
 
 
 }
 .container[_ngcontent-ng-c1070359278]{
-  background:rgb(245, 116, 31) !important;
+  // background:rgb(245, 116, 31) !important;
 }
 .container .in:hover
 {
-  background:rgb(255, 230, 10) !important;
+  background:rgb(255, 225, 126) !important;
 }
+
+
+
 
 th[_ngcontent-ng-c1070359278], td[_ngcontent-ng-c1070359278]{
   border: 1px solid #000000 !important;

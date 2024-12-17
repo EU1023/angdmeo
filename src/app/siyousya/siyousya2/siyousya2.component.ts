@@ -21,9 +21,9 @@ export class Siyousya2Component {
   //form列表
   form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
-    mobilePhoneNumber: new FormControl('', [Validators.required, Validators.min(10)]),
+    mobilePhoneNumber: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
-    age: new FormControl('', Validators.required),
+    age: new FormControl(''),
   })
 
   newQuestArray: Array<any> = [];
@@ -94,7 +94,7 @@ export class Siyousya2Component {
   }
   //判斷題型和輸入狀況
   checkNeed(): boolean {
-    if (!this.userName || !this.userPhone) {
+    if (!this.userName) {
       alert('false');
       return false;
     }
@@ -102,7 +102,7 @@ export class Siyousya2Component {
     for (let quest of this.newQuestArray) {
       if (quest.need) {
         //
-        if (quest.type == 'M') {
+        if (quest.type == 'multi') {
           let chenk = false;
           for (let option of quest.options) {
             if (option.boxBoolean) {
@@ -114,14 +114,14 @@ export class Siyousya2Component {
             alert('chenk false');
             return false;
           }
-        } else if (quest.type == 'Q') {
+        } else if (quest.type == 'single') {
           if (!quest.radioAnswer) {
-            alert('Q');
+            alert('single');
             return false;
           }
-        } else if (quest.type == 'T') {
+        } else if (quest.type == 'text') {
           if (!quest.answer) {
-            alert('T');
+            alert('text');
             return false;
           }
         }

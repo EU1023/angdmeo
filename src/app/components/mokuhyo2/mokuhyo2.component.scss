@@ -13,9 +13,10 @@
 
   float: left;
   border-left: 3px;
-  border-style: solid;
+  background-color: #ffffff;
+  // border-style: solid;
 
-  margin-top:10px;
+  margin-top:95px;
   margin-bottom:10px;
   margin-left: 10px;
   margin-right: 5px;
@@ -25,12 +26,28 @@
   width:100%;
 
   border-right: 3px;
-  border-style: solid;
+  // border-style: solid;
 
-  margin-top:10px;
+  font-size:50px!important;
+
+  margin-top:0px;
   margin-bottom:10px;
   margin-left: 5px;
   margin-right: 10px;
+
+  button {
+    background: none;              /* 移除背景 */
+    border: none;                  /* 移除邊框 */
+    color: #007bff;                /* 設定文字顏色為藍色，像是超連結 */
+    text-decoration: underline;     /* 加上底線 */
+    cursor: pointer;               /* 設定鼠標樣式為點擊型 */
+    font-size: 20px;                /* 可自訂字型大小 */
+  }
+
+  button:hover {
+    color: #0056b3;                /* 當滑鼠懸停時改變顏色 */
+    text-decoration: underline;     /* 保持底線 */
+  }
 }
 //
 .container {
@@ -50,11 +67,13 @@ th, td {
   padding: 8px;
   text-align: left;
 }
-
+.mat-mdc-row, .mdc-data-table__content{
+  font-size: 20px !important;
+}
 th {
   background-color: #11aa2a;
+  font-size: 23px !important;
 }
-
 .renzeiyesno{
   color: inherit;
   text-decoration: none;

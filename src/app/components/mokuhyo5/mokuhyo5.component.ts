@@ -46,16 +46,11 @@ export class Mokuhyo5Component {
     this.initialData = this.initialdataService.ques;
     console.log(this.initialdataService.quiz);
     console.log(this.initialdataService.ques);
+    this.questService.questData='';
     console.log(this.ques.length);
     //?
     if (!this.questService.questData) {
       this.tidyQuestArray();
-    } else {
-      this.userName = this.questService.questData.userName;
-      this.userPhone = this.questService.questData.userPhone;
-      this.userEmail = this.questService.questData.userEmail;
-      this.userAge = this.questService.questData.userAge;
-      this.newQuestArray = this.questService.questData.questArray;
     }
   }
 
@@ -103,6 +98,7 @@ export class Mokuhyo5Component {
   tidyQuestArray() {
     for (let array of this.initialData) {
       this.newQuestArray.push({ ...array, answer: '', radioAnswer: '' });
+      // console.log(this.newQuestArray);
     }
 
     for (let newArray of this.newQuestArray) {
@@ -111,7 +107,15 @@ export class Mokuhyo5Component {
         options.push({ ...option, boxBoolean: false });
       }
       newArray.options = options;
+      // console.log(newArray.options);
     }
+  }
+
+  // 取消
+  Cancel(){
+    this.initialdataService.quiz='';
+    this.initialdataService.ques='';
+    this.router.navigate(['/moguhyo1']);
   }
 
   goMokuhyo4() {
@@ -155,6 +159,48 @@ export class Mokuhyo5Component {
     }
     return true;
   }
+  // 更新問卷
+  updateQues(){
+    let quesList: {}[] = [];
+    console.log('for前');
+    for (let i = 0; i < this.ques.length; i++) {
+      let res = {
+        quizId: this.quiz.id,
+        quesId: this.ques[i].ques_id,
+        quesName: this.ques[i].ques_name,
+        type: this.ques[i].type,
+        required: this.ques[i].required,
+        options: JSON.stringify(this.ques[i].quest)
+      }
+      quesList = [...quesList, res];
+    };
+
+    console.log(this.quiz.id);
+    console.log('routerData前');
+    let routerData = {
+      id: this.quiz.id,
+      name: this.quiz.name,
+      description: this.quiz.description,
+      start_date: this.quiz.start_date,
+      end_date: this.quiz.end_date,
+      published: false,
+      ques_list: quesList,
+    }
+    console.log(routerData);
+    console.log('postapi前');
+    this.http.postApi('http://localhost:8080/quiz/update', routerData).subscribe((res: any) => {
+      console.log(res);
+      if (res.StatusCode != 200) {
+        alert(res.code + ' ' + res.message);
+        return
+      }
+      alert('回傳成功，請做確認');
+    })
+    this.initialdataService.ques=[];
+    this.router.navigate(['/moguhyo1']);
+  }
+
+
   // 僅儲存
   juststoreService() {
     let quesList: {}[] = [];

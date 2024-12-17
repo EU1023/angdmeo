@@ -1,4 +1,5 @@
 @for (quest of questData; track $index) {
+  <!-- @if(quest.type != 'text'){} -->
   <div class="divCss">
     <!-- 判斷不是文字題就顯示圖表 -->
     @if (quest.type != 'text') {
@@ -13,8 +14,8 @@
       @if (quest.type != 'text') {
           @for (label of quest.labels; track $index) {
             <h5 class="forText" style="padding-left: 15px;">
-              選項： {{ quest.labels }}
-              <span style="float: right;">{{ quest.data }}</span>
+              選項： {{ quest.labels[$index] }}
+              <span style="float: right;">{{ quest.data[$index] }}</span>
             </h5>
           }
       }
@@ -28,7 +29,7 @@
     <h5 class="typeTCss">{{data}}</h5>
   }
 </div> -->
-<div>
-  <button mat-flat-button (click)="goBack()">上一頁</button>
+<div class="bott">
+  <!-- <button mat-flat-button (click)="goBack()">上一頁</button> -->
   <button mat-flat-button (click)="gohomu()">返回首頁</button>
 </div>

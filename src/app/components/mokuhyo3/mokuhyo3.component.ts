@@ -50,13 +50,13 @@ export class Mokuhyo3Component {
       return;
     } else {
       this.initialdataservice.quiz = {
-
         name: this.questionnaireName,
         description: this.questionnaireContent,
         start_date: this.dataService.changeDateFormat2(this.fdata),
         end_date: this.dataService.changeDateFormat2(this.edata),
         published: true,
       };
+
       this.router.navigate(['/moguhyo1/mokuhyo4'])
     }
   }

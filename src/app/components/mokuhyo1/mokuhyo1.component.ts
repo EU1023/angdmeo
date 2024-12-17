@@ -26,7 +26,8 @@ export class Mokuhyo1Component {
   home(){
     if(this.mangeData.manage==false){
       this.router.navigate(['/siyousyaui/siyousya1']);
-    }else if(this.mangeData.manage==true){
+    }
+    if(this.mangeData.manage==true){
       this.router.navigate(['/moguhyo1/siyousya1']);
     }
 

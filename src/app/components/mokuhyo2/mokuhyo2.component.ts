@@ -16,6 +16,7 @@ import { NgClass } from '@angular/common';
 import { HttpClientService } from '../../http-service/http-client.service';
 import { QuestService } from '../../@services/quest.service';
 import { DataService } from '../../@services/data-service';
+import { initialDataService } from '../../@services/initial-data-service';
 import { } from '@angular/core';
 @Component({
   selector: 'app-mokuhyo2',
@@ -39,9 +40,10 @@ import { } from '@angular/core';
 export class Mokuhyo2Component {
   constructor(
     private router: Router,
-    private quesSiyousya2: QuestService,
+    private quesSiyousya  : QuestService,
     private dataService: DataService,
-    private http: HttpClientService
+    private http: HttpClientService,
+    private initialdataservice: initialDataService,
   ) { }
   //時間選擇器的變數
   fdata!: any;
@@ -85,7 +87,6 @@ export class Mokuhyo2Component {
     let Sdata = this.dataService.changeDateFormat2(this.fdata);
     //結束時間
     let enddata = this.dataService.changeDateFormat2(this.edata);
-
 
     let startDate = new Date(Sdata);
     let endDate = new Date(enddata);
@@ -143,7 +144,7 @@ export class Mokuhyo2Component {
   };
 
   userQuestionnaireList(id: number) {
-    this.quesSiyousya2.quizId = id;
+    this.quesSiyousya.quizId = id;
     this.router.navigate(['/moguhyo1/mokuhyo6']);
   }
 
@@ -154,8 +155,6 @@ export class Mokuhyo2Component {
       // map 遍歷將 quiz id 取出
       .map(item => item.id);
     const deletreq = { quizIdList: quiz_id_list };
-
-    console.log(deletreq);
 
     this.http.postApi('http://localhost:8080/quiz/delete', deletreq).subscribe(
       (res: any) => {
@@ -169,8 +168,6 @@ export class Mokuhyo2Component {
       this.dataSource.data = this.dataSource.data.filter(row => !this.selection.isSelected(row));
       // 清除選取狀態
       this.selection.clear();
-
-
   };
 
   //勾選處
@@ -181,13 +178,24 @@ export class Mokuhyo2Component {
   }
   masterToggle() {
     this.isAllSelected() ?
-      this.selection.clear() :
+      this.selection.clear():
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
 
   // 編輯
-  editingOptions(id:number){
+  editingOptions(quizdata:PeriodicElement){
+    this.quesSiyousya.questData = quizdata;
+    console.log(this.quesSiyousya.questData);
+    this.initialdataservice.quizId=quizdata.id,
+    this.initialdataservice.quiz = {
+      id:quizdata.id,
+      name: quizdata.name,
+      description: quizdata.description,
+      start_date: quizdata.start_date,
+      end_date: quizdata.end_date,
+      published: true,
+    };
     this.router.navigate(['/moguhyo1/mokuhyo4']);
   }
 

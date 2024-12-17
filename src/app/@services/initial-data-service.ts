@@ -7,6 +7,7 @@ import { Injectable } from "@angular/core";
 export class initialDataService{
   //建立問卷(名稱、說明、開始時間、結束時間)
   quiz!:any;
+  quizId!:any;
   //建立問卷問題
   ques!:any;
   Newdata: Array<any>=[];

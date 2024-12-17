@@ -1,10 +1,10 @@
 <form [formGroup]="form" class="container">
   <div id="auth-form" class="form active">
-    <label>帳號:</label>
-    <input formControlName="account" placeholder="帳號">
+    <label for="account">帳號:</label>
+    <input formControlName="account" placeholder="帳號" id="account">
     <br>
-    <label>密碼:</label>
-    <input formControlName="password" placeholder="密碼">
+    <label for="password">密碼:</label>
+    <input formControlName="password" placeholder="密碼" id="password">
     <br>
     <button (click)="showfromDataLogin()" [disabled]="!form.valid">登入</button>
   </div>

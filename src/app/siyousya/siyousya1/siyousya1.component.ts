@@ -59,9 +59,7 @@ export class Siyousya1Component {
 
   ngOnInit() {
     this.date = this.dataService.changeDateFormat(new Date());
-
     this.quizStartdate();
-
   }
   //時間選擇器
   //開始時間的限制
@@ -137,10 +135,13 @@ export class Siyousya1Component {
         // }
         // this.dataSource.data = res;
         // console.log(Array.isArray(res));
-        this.dataSource.data = res.map((item: PeriodicElement) => {
-          item.status = this.getStatus(item);
-          return item;
-        });
+        this.dataSource.data = res
+          .map((item: PeriodicElement) => {
+            // 設置每個項目的狀態
+            item.status = this.getStatus(item);
+            return item;
+          })
+          .filter((item: PeriodicElement) => item.status !== '未發布'); // 過濾掉狀態為「未發布」的項目
 
       });
   }

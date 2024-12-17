@@ -33,13 +33,13 @@ export class AppComponent {
             private router: Router){}
 
   ngOnInit(){
-    this.manage=this.manageData.manage;
+    // this.manage=this.manageData.manage;
     // if (this.manage) this.router.navigate(['/moguhyo1']);
     // if (!this.manage) this.router.navigate(['/siyousyaui']);
   }
 
   ngDoCheck(): void {
-    this.manage=this.manageData.manage;
+    // this.manage=this.manageData.manage;
   }
 
 }

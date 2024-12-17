@@ -1,7 +1,6 @@
-div {
-  border-style: solid;
+div,nav{
+  background-color: #f1dacc;
 }
-
 th,
 td {
   border: 1px solid #ddd;
@@ -27,20 +26,20 @@ th {
 }
 
 .right {
-  border-style: solid;
+  // border-style: solid;
   position: absolute;
-  top: 0px;
+  top: 2.3%;
   left: 50%;
   right: -50%;
   width: 50%;
-  height: 50%;
+  height: 48%;
   padding: 20px;
 }
 
 .rightDiv {
   // display: flex;
   // flex-flow: column wrap;
-  border-style: solid;
+  // border-style: solid;
 
   // max-width: fit-content;
   width: 100%;
@@ -60,9 +59,12 @@ th {
 }
 
 .cikayan {
-  position: absolute;
-  bottom: 0%;
-  right: 0%;
+  position: fixed;
+  bottom: 3%;
+  right: 2%;
+  // position: absolute;
+  // bottom: 0%;
+  // right: 0%;
   // text-align: right;
   // width: 50%;
   // height: 6%;

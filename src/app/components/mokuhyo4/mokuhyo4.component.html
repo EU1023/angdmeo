@@ -27,7 +27,7 @@
       (click)="addQA()"><mat-icon>add</mat-icon></button>
     <br>
     @for (Qroduce of quest; track $index) {
-    <button (click)="deleteQA($index)"><mat-icon>close</mat-icon></button>
+    <button  [ngClass]="{'topcoolse': ($index < 2 )}" style="margin: 5px;" (click)="deleteQA($index)"><mat-icon>close</mat-icon></button>
     @if (type == 'single') {
     <input type="text" [(ngModel)]="Qroduce.option">
     <br>
@@ -36,10 +36,6 @@
     <input type="text" [(ngModel)]="Qroduce.option">
     <br>
     }
-    <!-- @if (type == 'T') {
-    <input type="text" [disabled]="true" [(ngModel)]="Qroduce.valueName">
-    <br> -->
-    <!-- } -->
     }
     }
   </div>

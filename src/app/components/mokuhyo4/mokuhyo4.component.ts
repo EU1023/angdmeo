@@ -11,7 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { SelectionModel } from '@angular/cdk/collections';
-
+import { QuestService } from '../../@services/quest.service';
+import { HttpClientService } from '../../http-service/http-client.service';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/router';
 @Component({
   selector: 'app-mokuhyo4',
@@ -26,8 +27,11 @@ import { Router, RouterOutlet, RouterLink, RouterLinkActive, } from '@angular/ro
   styleUrl: './mokuhyo4.component.scss'
 })
 export class Mokuhyo4Component {
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private initialdataService: initialDataService,
+    private quesSiyousya: QuestService,
+    private http: HttpClientService,
   ) { };
   //問題編號
   ques_id: number = 0;
@@ -55,9 +59,10 @@ export class Mokuhyo4Component {
   qQQ: boolean = false;
 
   ngOnInit() {
-
+    if (this.initialdataService.quizId != null) {
+      this.editAgain(this.quesSiyousya.questData.id);
+    };
     this.dataSource.data = this.initialdataService.ques;
-
   };
 
 
@@ -152,9 +157,9 @@ export class Mokuhyo4Component {
 
     //清空 輸入格內容
     //問題名稱
-    this.ques_name='' ;
+    this.ques_name = '';
     //問題類型
-    this.type='';
+    this.type = '';
     //必填
     this.required = false;
   }
@@ -220,9 +225,9 @@ export class Mokuhyo4Component {
 
     //清空 輸入格內容
     //問題名稱
-    this.ques_name='' ;
+    this.ques_name = '';
     //問題類型
-    this.type='';
+    this.type = '';
     //必填
     this.required = false;
   }
@@ -253,12 +258,51 @@ export class Mokuhyo4Component {
     this.selection.clear();
   }
 
+  // 問卷再編輯
+  editAgain(quizId: number) {
+    this.http.getApi('http://localhost:8080/quiz/getques?quizId=' + quizId).subscribe(
+      (res: any) => {
+        const quesList = res;
+        console.log(quesList);
+        quesList.forEach((item: {
+          quesId: number,
+          quesName: string,
+          type: string,
+          required: boolean,
+          edit: '',
+          options: any,
+        }) => {
+          let optionsList;
+          try {
+            optionsList = JSON.parse(item.options);
+          } catch (e) {
+            console.error("Invalid JSON in options:", item.options, e);
+            optionsList = null; // 或設定為預設值
+          }
+
+          this.input_Questionnaire_Array.push({
+            ques_id: item.quesId,
+            ques_name: item.quesName,
+            type: item.type,
+            required: item.required,
+            edit: '',
+            quest: optionsList,
+          })
+        })
+        this.dataSource.data = this.input_Questionnaire_Array;
+      });
+  }
+
+
+
+
+
+
   //
   goMokuhyo3() {
     this.router.navigate(['/moguhyo1/mokuhyo3']);
   }
   goMokuhyo5() {
-
     //判斷空問卷
     if (this.dataSource.data.length == 0) {
       alert('請新增問卷問題');
@@ -270,8 +314,7 @@ export class Mokuhyo4Component {
       this.dataSource.data = [];
       this.input_Questionnaire_Array = [];
       this.router.navigate(['/moguhyo1/mokuhyo5']);
-    }
-
+    };
   }
 }
 
@@ -282,12 +325,12 @@ export interface addNewQuestionnaireForm {
   edit: string;
 }
 
-// export interface QuestionnaireForm {
-//   ques_id: number;
-//   ques_name: string;
-//   type: string;
-//   required: boolean;
-//   edit: string;
-//   quest: any;
-// }
+export interface QuestionnaireForm {
+  ques_id: number;
+  ques_name: string;
+  type: string;
+  required: boolean;
+  edit: string;
+  quest: any;
+}
 
